@@ -5,16 +5,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  padding: 0 20px; /* Add padding for better spacing on small devices */
+  box-sizing: border-box;
+  text-align: center; /* Center text and images */
 }
 
 .splash-logo {
   margin-top: -100px;
   animation: fadeIn 2s ease-in-out;
+  width: 35%; /* Make the logo responsive */
+  max-width: 200px; /* Limit the maximum width */
+  height: auto;
 }
 
 .splash-title {
-  margin-top: -80px;
-  font-size: 5rem;
+  margin-top: -5px;
+  font-size: 3rem;
   color: white;
   animation: fadeIn 3s ease-in-out;
 }
@@ -24,10 +31,12 @@
   justify-content: center;
   gap: 20px;
   margin-top: -10px;
+  flex-wrap: wrap; /* Allow images to wrap on smaller screens */
 }
 
 .splash-images img {
-  width: 250px;
+  width: 20%; /* Make images responsive */
+  max-width: 150px; /* Limit the maximum width */
   height: auto;
   animation: fadeIn 4s ease-in-out;
 }
@@ -51,4 +60,34 @@
   font-size: 1rem;
   color: white;
   animation: fadeIn 5s ease-in-out;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px; /* Add padding for better spacing on small devices */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .splash-title {
+    font-size: 3rem;
+  }
+  .splash-logo {
+    margin-top: -50px;
+  }
+  .splash-images img {
+    width: 25%; /* Adjust image width for tablets */
+    max-width: 100px; /* Limit the maximum width */
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-title {
+    font-size: 2.5rem;
+  }
+  .splash-logo {
+    margin-top: -30px;
+  }
+  .splash-images img {
+    width: 35%; /* Adjust image width for small devices */
+    max-width: 80px; /* Limit the maximum width */
+  }
 }

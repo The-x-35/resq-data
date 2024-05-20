@@ -1,0 +1,71 @@
+/* Sidebar.css */
+
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transform: translateX(-100%); /* Initially hidden */
+  transition: transform 1s ease-in-out; /* Smooth transition */
+}
+
+.sidebar-container.open {
+  transform: translateX(0); /* Slide in from the left */
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.sidebar-header img {
+  width: 100px; /* Adjust the size as needed */
+  height: auto;
+  margin-right: 10px; /* Space between the logo and app name */
+}
+
+.sidebar-options {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-option {
+  padding: 15px 20px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar-option:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-buttons {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.sidebar-button {
+  margin: 10px 0;
+  padding: 10px 20px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
