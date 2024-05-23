@@ -1,0 +1,44 @@
+.command-executor {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.command-executor form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.command-executor input {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.command-executor button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.command-executor button:hover {
+  background-color: #0056b3;
+}
+
+.output-box {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: black;
+  white-space: pre-wrap;
+}

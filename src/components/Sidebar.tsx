@@ -19,14 +19,26 @@ const Sidebar: React.FC = () => {
         <span>ResQ Data</span>
       </div>
       <ul className="sidebar-options">
-        <li className="sidebar-option">Option 1</li>
-        <li className="sidebar-option">Option 2</li>
-        <li className="sidebar-option">Option 3</li>
-        <li className="sidebar-option">Option 4</li>
+        <li className="sidebar-option">
+          <img src={logo} alt="Select Disk icon" />
+          Select Disk
+        </li>
+        <li className="sidebar-option">
+          <img src={logo} alt="Disk Image icon" />
+          Disk Image
+        </li>
+        <li className="sidebar-option">
+          <img src={logo} alt="Recoverable Files icon" />
+          Recoverable files
+        </li>
+        <li className="sidebar-option">
+          <img src={logo} alt="Recovery icon" />
+          Recovery
+        </li>
       </ul>
       <div className="sidebar-buttons">
-        <button className="sidebar-button">How to Use</button>
-        <button className="sidebar-button">How it Works</button>
+        <button className="sidebar-button">How to Use?</button>
+        <button className="sidebar-button">Developer's Guide</button>
       </div>
     </div>
   );

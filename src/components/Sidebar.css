@@ -49,6 +49,12 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+.sidebar-option img {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px;
+  margin-right: 10px; /* Space between the icon and the text */
+}
+
 .sidebar-buttons {
   position: absolute;
   bottom: 20px;
