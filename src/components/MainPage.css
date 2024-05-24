@@ -1,0 +1,46 @@
+/* MainPage.css */
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+.sidebar {
+  flex: 0 0 90px; /* Sidebar width */
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .main-content {
+    flex: 1;
+    width: 100%;
+    padding: 10px;
+  }
+}
