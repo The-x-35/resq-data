@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { spawn } from 'child_process';
 
 class AppUpdater {
   constructor() {
@@ -97,6 +98,12 @@ const createWindow = async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+    // Start the server
+    const serverProcess = spawn('npx', ['ts-node', '../components/server.ts'], {
+      cwd: __dirname,
+      shell: true
+    });
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
