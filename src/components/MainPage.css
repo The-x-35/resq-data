@@ -1,46 +1,49 @@
-/* MainPage.css */
-
 .Page {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
-}
-
-.app-container {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
+  background-color: #130f40;
+  background-image: linear-gradient(315deg, #130f40 0%, #000000 74%);
 }
 
 .sidebar {
-  flex: 0 0 90px; /* Sidebar width */
-  padding: 20px;
+  flex: 0 0 100px; /* Fixed width for sidebar */
+  z-index: 2; /* Ensure the sidebar is above the main content */
+  position: relative; /* Ensure the z-index takes effect */
 }
 
 .main-content {
-  flex: 1;
+  flex: 1; /* Take up remaining space */
   padding: 20px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 1; /* Ensure the main content is below the sidebar */
+  position: relative; /* Ensure the z-index takes effect */
+}
+
+/* Ensure sidebar does not overlap main content */
+@media (min-width: 769px) {
+  .main-content {
+    margin-left: 100px; /* Adjust margin to accommodate the sidebar */
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .app-container {
+  .Page {
     flex-direction: column;
   }
 
   .sidebar {
-    flex: 0 0 auto;
+    position: absolute; /* Sidebar becomes an overlay */
     width: 100%;
-    padding: 10px;
+    height: 60px; /* Adjust height as necessary */
+    top: 0;
+    left: 0;
+    z-index: 3; /* Ensure the sidebar is above other content */
   }
 
   .main-content {
-    flex: 1;
-    width: 100%;
-    padding: 10px;
+    margin-top: 60px; /* Ensure the main content starts below the sidebar */
   }
 }

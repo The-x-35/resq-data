@@ -1,0 +1,13 @@
+.disk-image {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid rgba(0, 128, 0, 0.2); /* Greenish tint */
+  border-radius: 12px;
+  background-color: rgba(0, 128, 0, 0.1); /* Lighter greenish tint */
+  backdrop-filter: blur(10px); /* Blur effect */
+  color: rgba(255, 255, 255, 0.9); /* White text */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  text-align: center;
+}

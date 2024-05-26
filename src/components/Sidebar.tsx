@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import logo from '../../assets/icon.png';
+import { Page } from './MainPage';
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onSelectPage: (page: Page) => void;
+  selectedPage: Page;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onSelectPage, selectedPage }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -10,7 +16,6 @@ const Sidebar: React.FC = () => {
       setIsOpen(true);
     }, 200); // Delay to ensure transition is noticeable
   }, []);
-
 
   return (
     <div className="sidebar">
@@ -20,19 +25,31 @@ const Sidebar: React.FC = () => {
           <span>ResQ Data</span>
         </div>
         <ul className="sidebar-options">
-          <li className="sidebar-option">
+          <li
+            className={`sidebar-option ${selectedPage === Page.SelectDisk ? 'active' : ''}`}
+            onClick={() => onSelectPage(Page.SelectDisk)}
+          >
             <img src={logo} alt="Select Disk icon" />
             Select Disk
           </li>
-          <li className="sidebar-option">
+          <li
+            className={`sidebar-option ${selectedPage === Page.DiskImage ? 'active' : ''}`}
+            onClick={() => onSelectPage(Page.DiskImage)}
+          >
             <img src={logo} alt="Disk Image icon" />
             Disk Image
           </li>
-          <li className="sidebar-option">
+          <li
+            className={`sidebar-option ${selectedPage === Page.RecoverableFiles ? 'active' : ''}`}
+            onClick={() => onSelectPage(Page.RecoverableFiles)}
+          >
             <img src={logo} alt="Recoverable Files icon" />
             Recoverable files
           </li>
-          <li className="sidebar-option">
+          <li
+            className={`sidebar-option ${selectedPage === Page.Recovery ? 'active' : ''}`}
+            onClick={() => onSelectPage(Page.Recovery)}
+          >
             <img src={logo} alt="Recovery icon" />
             Recovery
           </li>

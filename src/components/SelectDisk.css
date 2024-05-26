@@ -3,21 +3,31 @@
   max-width: 1000px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid rgba(0, 128, 0, 0.2); /* Greenish tint */
   border-radius: 12px;
-  background-color: rgba(0, 128, 0, 0.1); /* Lighter greenish tint */
+  background-image: linear-gradient(315deg, rgba(19, 15, 64, 0.4) 0%, rgba(0, 0, 0, 0.4) 74%); /* Tint gradient */
   backdrop-filter: blur(10px); /* Blur effect */
   color: rgba(255, 255, 255, 0.9); /* White text */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
+.table-and-button {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .output-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-top: 20px;
-  background-color: rgba(0, 128, 0, 0.1); /* Lighter greenish tint */
+  margin-left: 60px;
+  background-color: rgba(19, 15, 64, 0.4); /* Tint matching background with transparency */
+  background-image: linear-gradient(315deg, rgba(19, 15, 64, 0.4) 0%, rgba(0, 0, 0, 0.4) 74%); /* Tint gradient */
   backdrop-filter: blur(10px); /* Blur effect */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  border-radius: 12px; /* Rounded borders for table */
+  overflow: hidden; /* Ensure child elements respect the border radius */
 }
 
 .output-table th,
@@ -30,6 +40,39 @@
 .output-table th {
   background-color: rgba(0, 0, 0, 0.8); /* Dark background for headers */
   color: white; /* White text */
+}
+
+.output-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Lighter background color on hover */
+  cursor: pointer;
+}
+
+.output-table tbody tr.selected {
+  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white tint for selected disk */
+}
+
+.output-table thead th:first-child {
+  border-top-left-radius: 12px; /* Top-left corner radius */
+}
+
+.output-table thead th:last-child {
+  border-top-right-radius: 12px; /* Top-right corner radius */
+}
+
+.output-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px; /* Bottom-left corner radius */
+}
+
+.output-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px; /* Bottom-right corner radius */
+}
+
+.button {
+  align-self: flex-end;
+  margin-top: 20px;
+  margin-right: -60px;
+  color: black;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
 /* Responsive adjustments */
@@ -64,6 +107,10 @@
 
   .output-table {
     font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .button {
     margin-top: 10px;
   }
 }

@@ -13,8 +13,13 @@ interface DFOutput {
   mountedOn: string;
 }
 
-const SelectDisk: React.FC = () => {
+interface SelectDiskProps {
+  onDiskSelect: (filesystem: string) => void;
+}
+
+const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
   const [output, setOutput] = useState<DFOutput[]>([]);
+  const [selectedDisk, setSelectedDisk] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDFOutput = async () => {
@@ -46,39 +51,63 @@ const SelectDisk: React.FC = () => {
     return formattedData;
   };
 
+  const handleDiskSelect = (filesystem: string) => {
+    setSelectedDisk(filesystem);
+  };
+
+  const confirmSelection = () => {
+    if (selectedDisk) {
+      const isConfirmed = window.confirm(`Are you sure you want to select ${selectedDisk} as the filesystem?`);
+      if (isConfirmed) {
+        onDiskSelect(selectedDisk);
+      } else {
+        setSelectedDisk(null);
+      }
+    }
+  };
+
   return (
     <div className="select-disk">
       {output.length > 0 ? (
-        <table className="output-table">
-          <thead>
-            <tr>
-              <th>Filesystem</th>
-              <th>Size</th>
-              <th>Used</th>
-              <th>Avail</th>
-              <th>Capacity</th>
-              <th>Iused</th>
-              <th>Ifree</th>
-              <th>%Iused</th>
-              <th>Mounted on</th>
-            </tr>
-          </thead>
-          <tbody>
-            {output.map((row, index) => (
-              <tr key={index}>
-                <td>{row.filesystem}</td>
-                <td>{row.size}</td>
-                <td>{row.used}</td>
-                <td>{row.avail}</td>
-                <td>{row.capacity}</td>
-                <td>{row.iused}</td>
-                <td>{row.ifree}</td>
-                <td>{row.iusedPercent}</td>
-                <td>{row.mountedOn}</td>
+        <div className="table-and-button">
+          <table className="output-table">
+            <thead>
+              <tr>
+                <th>Filesystem</th>
+                <th>Size</th>
+                <th>Used</th>
+                <th>Avail</th>
+                <th>Capacity</th>
+                <th>Iused</th>
+                <th>Ifree</th>
+                <th>%Iused</th>
+                <th>Mounted on</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {output.map((row, index) => (
+                <tr
+                  key={index}
+                  onClick={() => handleDiskSelect(row.filesystem)}
+                  className={row.filesystem === selectedDisk ? 'selected' : ''}
+                >
+                  <td>{row.filesystem}</td>
+                  <td>{row.size}</td>
+                  <td>{row.used}</td>
+                  <td>{row.avail}</td>
+                  <td>{row.capacity}</td>
+                  <td>{row.iused}</td>
+                  <td>{row.ifree}</td>
+                  <td>{row.iusedPercent}</td>
+                  <td>{row.mountedOn}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button className="button" onClick={confirmSelection} disabled={!selectedDisk}>
+            Confirm Selection
+          </button>
+        </div>
       ) : (
         <p>Loading...</p>
       )}
