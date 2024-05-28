@@ -34,7 +34,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ command: `sudo dd if=${filesystem} of=disk.img bs=1024k status=progress` }),
+        body: JSON.stringify({ command: `sudo dd if=${filesystem} of=../../../disk.img bs=1024k status=progress` }),
       });
 
       const reader = response.body?.getReader();

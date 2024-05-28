@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import SelectDisk from './SelectDisk';
 import DiskImage from './DiskImage';
 import './MainPage.css';
+import CommandExecutor from './CommandExecutor';
 
 export enum Page {
   SelectDisk,
