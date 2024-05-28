@@ -1,5 +1,5 @@
 import express from 'express';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import cors from 'cors';
 
 const app = express();
@@ -18,6 +18,25 @@ app.post('/execute', (req, res) => {
       return res.json({ output: `Stderr: ${stderr}` });
     }
     res.json({ output: stdout });
+  });
+});
+
+app.post('/execute-stream', (req, res) => {
+  const { command } = req.body;
+  const process = spawn(command, { shell: true });
+
+  res.setHeader('Content-Type', 'text/plain');
+
+  process.stdout.on('data', (data) => {
+    res.write(data.toString());
+  });
+
+  process.stderr.on('data', (data) => {
+    res.write(data.toString());
+  });
+
+  process.on('close', (code) => {
+    res.end(`\nProcess exited with code ${code}`);
   });
 });
 
