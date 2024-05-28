@@ -25,7 +25,9 @@ app.post('/execute-stream', (req, res) => {
   const { command } = req.body;
   const process = spawn(command, { shell: true });
 
-  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
 
   process.stdout.on('data', (data) => {
     res.write(data.toString());

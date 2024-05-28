@@ -43,7 +43,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem }) => {
       while (true) {
         const { done, value } = await reader?.read()!;
         if (done) break;
-        setOutput((prevOutput) => prevOutput + decoder.decode(value));
+        setOutput(decoder.decode(value));
       }
     } catch (error) {
       setOutput('Error executing command');
@@ -59,7 +59,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem }) => {
       <button onClick={handleUnmount}>Unmount Disk</button>
       <button onClick={handleCreateDiskImage} disabled={loading}>Make Disk Image</button>
       <div className="output-box">
-        {loading ? <p>Loading...</p> : <pre>{output}</pre>}
+        <pre>{output}</pre>
       </div>
     </div>
   );
