@@ -4,6 +4,7 @@ import SelectDisk from './SelectDisk';
 import DiskImage from './DiskImage';
 import './MainPage.css';
 import CommandExecutor from './CommandExecutor';
+import RecoverableFiles from './RecoverableFiles';
 
 export enum Page {
   SelectDisk,
@@ -21,18 +22,22 @@ const MainPage: React.FC = () => {
     setSelectedPage(Page.DiskImage); // Automatically navigate to DiskImage after selecting a disk
   };
 
+  const handleShowRecoverableFiles = () => {
+    setSelectedPage(Page.RecoverableFiles); // Navigate to RecoverableFiles page
+  };
+
   const renderContent = () => {
     switch (selectedPage) {
       case Page.SelectDisk:
         return <SelectDisk onDiskSelect={handleDiskSelect} />;
       case Page.DiskImage:
         return selectedFilesystem ? (
-          <DiskImage filesystem={selectedFilesystem} />
+          <DiskImage filesystem={selectedFilesystem} onShowRecoverableFiles={handleShowRecoverableFiles} />
         ) : (
           <p>Please select a filesystem first.</p>
         );
       case Page.RecoverableFiles:
-        return <p>Recoverable Files Component Placeholder</p>;
+        return <RecoverableFiles />;
       case Page.Recovery:
         return <p>Recovery Component Placeholder</p>;
       default:

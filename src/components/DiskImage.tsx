@@ -3,9 +3,10 @@ import './DiskImage.css';
 
 interface DiskImageProps {
   filesystem: string;
+  onShowRecoverableFiles: () => void; // New prop to handle showing recoverable files
 }
 
-const DiskImage: React.FC<DiskImageProps> = ({ filesystem }) => {
+const DiskImage: React.FC<DiskImageProps> = ({ filesystem, onShowRecoverableFiles }) => {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -58,6 +59,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem }) => {
       <p>Filesystem: {filesystem}</p>
       <button onClick={handleUnmount}>Unmount Disk</button>
       <button onClick={handleCreateDiskImage} disabled={loading}>Make Disk Image</button>
+      <button onClick={onShowRecoverableFiles} disabled={loading}>Show Recoverable Files</button>
       <div className="output-box">
         <pre>{output}</pre>
       </div>
