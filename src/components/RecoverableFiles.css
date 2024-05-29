@@ -1,0 +1,27 @@
+.recoverable-files {
+  padding: 20px;
+}
+
+.table-and-button {
+  margin-top: 20px;
+}
+
+.output-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.output-table th,
+.output-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.output-table th {
+  /* background-color: #f2f2f2; */
+  text-align: left;
+}
+
+.output-table tr:hover {
+  background-color: #f1f1f1;
+}

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import SelectDisk from './SelectDisk';
 import DiskImage from './DiskImage';
+import RecoverableFiles from './RecoverableFiles'; // Import the new component
 import './MainPage.css';
 import CommandExecutor from './CommandExecutor';
-import RecoverableFiles from './RecoverableFiles';
 
 export enum Page {
   SelectDisk,
@@ -53,6 +53,6 @@ const MainPage: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MainPage;
