@@ -7,7 +7,11 @@ interface FLSOutput {
   fileName: string;
 }
 
-const RecoverableFiles: React.FC = () => {
+interface RecoverableFilesProps {
+  onRecoverAllFiles: () => void; // Add a prop for handling navigation
+}
+
+const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }) => {
   const [output, setOutput] = useState<FLSOutput[]>([]);
 
   useEffect(() => {
@@ -62,6 +66,9 @@ const RecoverableFiles: React.FC = () => {
               ))}
             </tbody>
           </table>
+          <button className="button" onClick={onRecoverAllFiles}>
+            Recover All Files
+          </button>
         </div>
       ) : (
         <p>Loading...</p>

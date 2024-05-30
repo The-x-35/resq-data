@@ -25,3 +25,30 @@
 .output-table tr:hover {
   background-color: #f1f1f1;
 }
+
+
+.recoverable-files .button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.recoverable-files .button:hover {
+  background-color: #0056b3;
+}
+
+.recovery {
+  padding: 20px;
+}
+
+.recovery h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.recovery p {
+  font-size: 16px;
+}

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import SelectDisk from './SelectDisk';
 import DiskImage from './DiskImage';
-import RecoverableFiles from './RecoverableFiles'; // Import the new component
+import RecoverableFiles from './RecoverableFiles';
+import Recovery from './Recovery';
 import './MainPage.css';
 import CommandExecutor from './CommandExecutor';
 
@@ -26,6 +27,10 @@ const MainPage: React.FC = () => {
     setSelectedPage(Page.RecoverableFiles); // Navigate to RecoverableFiles page
   };
 
+  const handleRecoverAllFiles = () => {
+    setSelectedPage(Page.Recovery); // Navigate to Recovery page
+  };
+
   const renderContent = () => {
     switch (selectedPage) {
       case Page.SelectDisk:
@@ -37,9 +42,9 @@ const MainPage: React.FC = () => {
           <p>Please select a filesystem first.</p>
         );
       case Page.RecoverableFiles:
-        return <RecoverableFiles />;
+        return <RecoverableFiles onRecoverAllFiles={handleRecoverAllFiles} />;
       case Page.Recovery:
-        return <p>Recovery Component Placeholder</p>;
+        return <Recovery />;
       default:
         return <SelectDisk onDiskSelect={handleDiskSelect} />;
     }
