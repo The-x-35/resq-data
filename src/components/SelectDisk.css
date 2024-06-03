@@ -1,116 +1,171 @@
 .select-disk {
   font-family: Arial, sans-serif;
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px;
+  max-width: 100%;
+  margin: 10px auto;
+  padding: 10px;
   border-radius: 12px;
-  background-image: linear-gradient(315deg, rgba(19, 15, 64, 0.4) 0%, rgba(0, 0, 0, 0.4) 74%); /* Tint gradient */
-  backdrop-filter: blur(10px); /* Blur effect */
-  color: rgba(255, 255, 255, 0.9); /* White text */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  background-image: linear-gradient(315deg, rgba(19, 15, 64, 0.4) 0%, rgba(0, 0, 0, 0.4) 74%);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 .table-and-button {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .output-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-top: 20px;
-  margin-left: 60px;
-  background-color: rgba(19, 15, 64, 0.4); /* Tint matching background with transparency */
-  background-image: linear-gradient(315deg, rgba(19, 15, 64, 0.4) 0%, rgba(0, 0, 0, 0.4) 74%); /* Tint gradient */
-  backdrop-filter: blur(10px); /* Blur effect */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
-  border-radius: 12px; /* Rounded borders for table */
-  overflow: hidden; /* Ensure child elements respect the border radius */
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: rgba(19, 15, 64, 0.4);
+  background-image: linear-gradient(315deg, rgba(19, 15, 64, 0.4) 0%, rgba(0, 0, 0, 0.4) 74%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .output-table th,
 .output-table td {
-  border: 1px solid rgba(255, 255, 255, 0.2); /* White border with some transparency */
-  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px; /* Reduced padding */
+  margin: 0; /* Set margin to 0 */
   text-align: left;
+  font-size: 16px;
 }
 
 .output-table th {
-  background-color: rgba(0, 0, 0, 0.8); /* Dark background for headers */
-  color: white; /* White text */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
 }
 
 .output-table tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Lighter background color on hover */
+  background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
 
 .output-table tbody tr.selected {
-  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white tint for selected disk */
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .output-table thead th:first-child {
-  border-top-left-radius: 12px; /* Top-left corner radius */
+  border-top-left-radius: 12px;
 }
 
 .output-table thead th:last-child {
-  border-top-right-radius: 12px; /* Top-right corner radius */
+  border-top-right-radius: 12px;
 }
 
 .output-table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 12px; /* Bottom-left corner radius */
+  border-bottom-left-radius: 12px;
 }
 
 .output-table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 12px; /* Bottom-right corner radius */
+  border-bottom-right-radius: 12px;
 }
 
 .button {
   align-self: flex-end;
-  margin-top: 20px;
-  margin-right: -60px;
+  margin-top: 10px;
+  margin-right: 10px;
   color: black;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .select-disk {
-    padding: 15px;
-    margin: 15px auto;
+    padding: 5px;
+    margin: 5px auto;
     border-width: 1px;
+    overflow-x: auto;
   }
 
   .output-table th,
   .output-table td {
-    padding: 10px;
+    font-size: 10px;
+    padding: 3px; /* Further reduced padding */
   }
 
   .output-table {
-    margin-top: 15px;
+    margin-top: 5px;
   }
 }
 
 @media (max-width: 480px) {
   .select-disk {
-    padding: 10px;
-    margin: 10px auto;
+    padding: 5px;
+    margin: 5px auto;
     border-width: 1px;
+    overflow-x: auto;
   }
 
   .output-table th,
   .output-table td {
-    padding: 8px;
+    font-size: 10px; /* Further reduced font size */
+    padding: 3px; /* Further reduced padding */
   }
 
   .output-table {
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 10px; /* Further reduced font size */
+    margin-top: 5px;
   }
 
   .button {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
   }
+}
+
+/* SelectDisk.css */
+
+.select-disk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.table-and-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.output-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px 0;
+}
+
+.output-table th,
+.output-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.output-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.output-table tr.selected {
+  background-color: #d1e7fd;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
 }

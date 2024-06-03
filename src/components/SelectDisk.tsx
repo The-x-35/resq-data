@@ -1,58 +1,122 @@
 import React, { useState, useEffect } from 'react';
 import './SelectDisk.css';
 
-interface DFOutput {
-  filesystem: string;
-  size: string;
-  used: string;
-  avail: string;
-  capacity: string;
-  iused: string;
-  ifree: string;
-  iusedPercent: string;
-  mountedOn: string;
+interface DiskInfo {
+  deviceNode: string;
+  volumeName: string;
+  mounted: string;
+  fileSystemPersonality: string;
+  volumeUsedSpace: string;
+  diskSize: string;
 }
 
 interface SelectDiskProps {
-  onDiskSelect: (filesystem: string) => void;
+  onDiskSelect: (deviceNode: string) => void;
 }
 
 const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
-  const [output, setOutput] = useState<DFOutput[]>([]);
+  const [output, setOutput] = useState<string[]>([]);
+  const [diskInfo, setDiskInfo] = useState<DiskInfo[]>([]);
   const [selectedDisk, setSelectedDisk] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchDFOutput = async () => {
+    const fetchDiskList = async () => {
       try {
         const response = await fetch('http://localhost:5001/execute', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ command: 'df -h' }),
+          body: JSON.stringify({ command: 'diskutil list' }),
         });
         const data = await response.json();
-        const formattedOutput = formatDFOutput(data.output);
-        setOutput(formattedOutput);
+        setOutput(data.output.split('\n'));
       } catch (error) {
-        console.error('Error executing command', error);
+        console.error('Error fetching disk list', error);
       }
     };
 
-    fetchDFOutput();
+    fetchDiskList();
   }, []);
 
-  const formatDFOutput = (output: string): DFOutput[] => {
-    const lines = output.split('\n');
-    const formattedData = lines.slice(1).filter(Boolean).map(line => {
-      const [filesystem, size, used, avail, capacity, iused, ifree, iusedPercent, mountedOn] = line.split(/\s+/);
-      return { filesystem, size, used, avail, capacity, iused, ifree, iusedPercent, mountedOn };
-    });
-    return formattedData;
+  useEffect(() => {
+    const fetchDiskInfo = async () => {
+      try {
+        const infoPromises = output.map(line => {
+          const matches = line.match(/(disk\d+s\d+)/);
+          if (matches && matches.length > 0) {
+            const deviceNode = matches[1];
+            // Exclude disk0 entries
+            if (!deviceNode.includes('disk0')) {
+              return fetchDiskDetails(deviceNode);
+            }
+          }
+          return Promise.resolve(null);
+        });
+        const diskDetails = await Promise.all(infoPromises);
+        setDiskInfo(diskDetails.filter(info => info !== null) as DiskInfo[]);
+      } catch (error) {
+        console.error('Error fetching disk info', error);
+      }
+    };
+
+    fetchDiskInfo();
+  }, [output]);
+
+  const fetchDiskDetails = async (deviceNode: string): Promise<DiskInfo | null> => {
+    try {
+      const response = await fetch('http://localhost:5001/execute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command: `diskutil info /dev/${deviceNode}` }),
+      });
+      const data = await response.json();
+      const info = parseDiskInfo(data.output);
+      return info;
+    } catch (error) {
+      console.error('Error fetching disk details', error);
+      return null;
+    }
   };
 
-  const handleDiskSelect = (filesystem: string) => {
-    setSelectedDisk(filesystem);
+  const parseDiskInfo = (output: string): DiskInfo | null => {
+    const lines = output.split('\n');
+    const diskInfo: Partial<DiskInfo> = {};
+
+    lines.forEach(line => {
+      const [key, value] = line.split(':').map(item => item.trim());
+      switch (key) {
+        case 'Device Node':
+          diskInfo.deviceNode = value;
+          break;
+        case 'Volume Name':
+          diskInfo.volumeName = value;
+          break;
+        case 'Mounted':
+          diskInfo.mounted = value;
+          break;
+        case 'File System Personality':
+          diskInfo.fileSystemPersonality = value;
+          break;
+        case 'Volume Used Space':
+          diskInfo.volumeUsedSpace = value.split(' ').slice(0, 2).join(' ') + ' GB';
+          break;
+        case 'Disk Size':
+          diskInfo.diskSize = value.split(' ').slice(0, 2).join(' ') + ' GB';
+          break;
+        default:
+          break;
+      }
+    });
+
+    if (Object.keys(diskInfo).length === 0) return null;
+    return diskInfo as DiskInfo;
+  };
+
+  const handleDiskSelect = (deviceNode: string) => {
+    setSelectedDisk(deviceNode);
   };
 
   const confirmSelection = () => {
@@ -68,38 +132,32 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
 
   return (
     <div className="select-disk">
-      {output.length > 0 ? (
+      {diskInfo.length > 0 ? (
         <div className="table-and-button">
           <table className="output-table">
             <thead>
               <tr>
-                <th>Filesystem</th>
-                <th>Size</th>
-                <th>Used</th>
-                <th>Avail</th>
-                <th>Capacity</th>
-                <th>Iused</th>
-                <th>Ifree</th>
-                <th>%Iused</th>
-                <th>Mounted on</th>
+                <th>Device Node</th>
+                <th>Volume Name</th>
+                <th>Mounted</th>
+                <th>File System</th>
+                <th>Volume Used</th>
+                <th>Disk Size</th>
               </tr>
             </thead>
             <tbody>
-              {output.map((row, index) => (
+              {diskInfo.map((disk, index) => (
                 <tr
                   key={index}
-                  onClick={() => handleDiskSelect(row.filesystem)}
-                  className={row.filesystem === selectedDisk ? 'selected' : ''}
+                  onClick={() => handleDiskSelect(disk.deviceNode)}
+                  className={disk.deviceNode === selectedDisk ? 'selected' : ''}
                 >
-                  <td>{row.filesystem}</td>
-                  <td>{row.size}</td>
-                  <td>{row.used}</td>
-                  <td>{row.avail}</td>
-                  <td>{row.capacity}</td>
-                  <td>{row.iused}</td>
-                  <td>{row.ifree}</td>
-                  <td>{row.iusedPercent}</td>
-                  <td>{row.mountedOn}</td>
+                  <td>{disk.deviceNode}</td>
+                  <td>{disk.volumeName}</td>
+                  <td>{disk.mounted}</td>
+                  <td>{disk.fileSystemPersonality}</td>
+                  <td>{disk.volumeUsedSpace}</td>
+                  <td>{disk.diskSize}</td>
                 </tr>
               ))}
             </tbody>

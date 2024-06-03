@@ -8,7 +8,4 @@ npm run build
 npm run package
 
 
-implement 
-disk
-util list 
-command instead of df
+implement diskutil list command instead of df
