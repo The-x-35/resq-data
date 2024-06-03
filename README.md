@@ -8,4 +8,3 @@ npm run build
 npm run package
 
 
-implement diskutil list command instead of df

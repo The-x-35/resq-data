@@ -101,10 +101,10 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
           diskInfo.fileSystemPersonality = value;
           break;
         case 'Volume Used Space':
-          diskInfo.volumeUsedSpace = value.split(' ').slice(0, 2).join(' ') + ' GB';
+          diskInfo.volumeUsedSpace = value.split(' ').slice(0, 2).join(' ') ;
           break;
         case 'Disk Size':
-          diskInfo.diskSize = value.split(' ').slice(0, 2).join(' ') + ' GB';
+          diskInfo.diskSize = value.split(' ').slice(0, 2).join(' ') ;
           break;
         default:
           break;
