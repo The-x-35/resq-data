@@ -18,6 +18,7 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
   const [output, setOutput] = useState<string[]>([]);
   const [diskInfo, setDiskInfo] = useState<DiskInfo[]>([]);
   const [selectedDisk, setSelectedDisk] = useState<string | null>(null);
+  const [selectedVolumeName, setSelectedVolumeName] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchDiskList = async () => {
@@ -101,10 +102,10 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
           diskInfo.fileSystemPersonality = value;
           break;
         case 'Volume Used Space':
-          diskInfo.volumeUsedSpace = value.split(' ').slice(0, 2).join(' ') ;
+          diskInfo.volumeUsedSpace = value.split(' ').slice(0, 2).join(' ');
           break;
         case 'Disk Size':
-          diskInfo.diskSize = value.split(' ').slice(0, 2).join(' ') ;
+          diskInfo.diskSize = value.split(' ').slice(0, 2).join(' ');
           break;
         default:
           break;
@@ -115,17 +116,19 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
     return diskInfo as DiskInfo;
   };
 
-  const handleDiskSelect = (deviceNode: string) => {
+  const handleDiskSelect = (deviceNode: string, volumeName: string) => {
     setSelectedDisk(deviceNode);
+    setSelectedVolumeName(volumeName);
   };
 
   const confirmSelection = () => {
-    if (selectedDisk) {
-      const isConfirmed = window.confirm(`Are you sure you want to select ${selectedDisk} as the filesystem?`);
+    if (selectedDisk && selectedVolumeName) {
+      const isConfirmed = window.confirm(`Are you sure you want to select ${selectedVolumeName}?`);
       if (isConfirmed) {
         onDiskSelect(selectedDisk);
       } else {
         setSelectedDisk(null);
+        setSelectedVolumeName(null);
       }
     }
   };
@@ -149,7 +152,7 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
               {diskInfo.map((disk, index) => (
                 <tr
                   key={index}
-                  onClick={() => handleDiskSelect(disk.deviceNode)}
+                  onClick={() => handleDiskSelect(disk.deviceNode, disk.volumeName)}
                   className={disk.deviceNode === selectedDisk ? 'selected' : ''}
                 >
                   <td>{disk.deviceNode}</td>
