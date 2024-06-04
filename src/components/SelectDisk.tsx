@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SelectDisk.css';
+import Disk from './ui/disk';
 
 interface DiskInfo {
   deviceNode: string;
@@ -158,18 +159,17 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
             </thead>
             <tbody>
               {diskInfo.map((disk, index) => (
-                <tr
+                <Disk
                   key={index}
+                  deviceNode={disk.deviceNode}
+                  volumeName={disk.volumeName}
+                  mounted={disk.mounted}
+                  fileSystemPersonality={disk.fileSystemPersonality}
+                  volumeUsedSpace={disk.volumeUsedSpace}
+                  diskSize={disk.diskSize}
                   onClick={() => handleDiskSelect(disk.deviceNode, disk.volumeName)}
-                  className={disk.deviceNode === selectedDisk ? 'selected' : ''}
-                >
-                  <td>{disk.deviceNode}</td>
-                  <td>{disk.volumeName}</td>
-                  <td>{disk.mounted}</td>
-                  <td>{disk.fileSystemPersonality}</td>
-                  <td>{disk.volumeUsedSpace}</td>
-                  <td>{disk.diskSize}</td>
-                </tr>
+                  isSelected={disk.deviceNode === selectedDisk}
+                />
               ))}
             </tbody>
           </table>
