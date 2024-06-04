@@ -55,7 +55,8 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
           return Promise.resolve(null);
         });
         const diskDetails = await Promise.all(infoPromises);
-        setDiskInfo(diskDetails.filter(info => info !== null) as DiskInfo[]);
+        const uniqueDiskDetails = removeDuplicates(diskDetails.filter(info => info !== null) as DiskInfo[]);
+        setDiskInfo(uniqueDiskDetails);
       } catch (error) {
         console.error('Error fetching disk info', error);
       }
@@ -123,7 +124,7 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
 
   const confirmSelection = () => {
     if (selectedDisk && selectedVolumeName) {
-      const isConfirmed = window.confirm(`Are you sure you want to select ${selectedVolumeName}?`);
+      const isConfirmed = window.confirm(`Are you sure you want to select "${selectedVolumeName}" ?`);
       if (isConfirmed) {
         onDiskSelect(selectedDisk);
       } else {
@@ -131,6 +132,13 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
         setSelectedVolumeName(null);
       }
     }
+  };
+
+  const removeDuplicates = (diskDetails: DiskInfo[]): DiskInfo[] => {
+    const uniqueDiskDetails = diskDetails.filter((disk, index, self) =>
+      index === self.findIndex((d) => d.deviceNode === disk.deviceNode)
+    );
+    return uniqueDiskDetails;
   };
 
   return (
