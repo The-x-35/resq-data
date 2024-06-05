@@ -25,7 +25,7 @@
 /* Ensure sidebar does not overlap main content */
 @media (min-width: 769px) {
   .main-content {
-    margin-left: 300px; /* Adjust margin to accommodate the sidebar */
+    margin-left: 250px; /* Adjust margin to accommodate the sidebar */
   }
 }
 
@@ -46,6 +46,6 @@
 
   .main-content {
     margin-top: 60px; /* Ensure the main content starts below the sidebar */
-    margin-left: 290px;
+    margin-left: 250px;
   }
 }
