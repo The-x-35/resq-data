@@ -22,13 +22,22 @@ app.post('/execute', (req, res) => {
         res.json({ output: stdout });
     });
 });
+app.post('/execute-stream', (req, res) => {
+    const { command } = req.body;
+    const process = (0, child_process_1.spawn)(command, { shell: true });
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    process.stdout.on('data', (data) => {
+        res.write(data.toString());
+    });
+    process.stderr.on('data', (data) => {
+        res.write(data.toString());
+    });
+    process.on('close', (code) => {
+        res.end(`\nProcess exited with code ${code}`);
+    });
+});
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
-});
-app.use((0, cors_1.default)());
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
 });

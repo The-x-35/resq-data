@@ -1,0 +1,47 @@
+.disk-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.disk-container.selected {
+  background-color: #f0f8ff;
+}
+
+.file-system-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.disk-details {
+  flex-grow: 1;
+}
+
+.volume-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: green;
+}
+
+.mounted-info {
+  font-size: 0.9em;
+  color: #555;
+}

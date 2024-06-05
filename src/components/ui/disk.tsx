@@ -1,4 +1,5 @@
 import React from 'react';
+import './Disk.css';
 
 interface DiskProps {
   deviceNode: string;
@@ -21,15 +22,37 @@ const Disk: React.FC<DiskProps> = ({
   onClick,
   isSelected,
 }) => {
+  const getFileSystemImage = (fileSystem: string) => {
+    switch (fileSystem.toLowerCase()) {
+      case 'apfs':
+        return 'apfs.png';
+      case 'ntfs':
+        return 'ntfs.png';
+      // Add more cases for different file systems if needed
+      default:
+        return 'default.png';
+    }
+  };
+
+  const calculateUsagePercentage = (used: string, size: string) => {
+    const usedValue = parseFloat(used.replace(/[^0-9.]/g, ''));
+    const sizeValue = parseFloat(size.replace(/[^0-9.]/g, ''));
+    return (usedValue / sizeValue) * 100;
+  };
+
+  const usagePercentage = calculateUsagePercentage(volumeUsedSpace, diskSize);
+
   return (
-    <tr onClick={onClick} className={isSelected ? 'selected' : ''}>
-      <td>{deviceNode}</td>
-      <td>{volumeName}</td>
-      <td>{mounted}</td>
-      <td>{fileSystemPersonality}</td>
-      <td>{volumeUsedSpace}</td>
-      <td>{diskSize}</td>
-    </tr>
+    <div className={`disk-container ${isSelected ? 'selected' : ''}`} onClick={onClick}>
+      <img src={getFileSystemImage(fileSystemPersonality)} alt={fileSystemPersonality} className="file-system-image" />
+      <div className="disk-details">
+        <div className="volume-name">{volumeName}</div>
+        <div className="progress-bar">
+          <div className="progress-bar-fill" style={{ width: `${usagePercentage}%` }}></div>
+        </div>
+        <div className="mounted-info">Mounted: {mounted}</div>
+      </div>
+    </div>
   );
 };
 

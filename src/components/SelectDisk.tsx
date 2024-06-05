@@ -145,34 +145,20 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
   return (
     <div className="select-disk">
       {diskInfo.length > 0 ? (
-        <div className="table-and-button">
-          <table className="output-table">
-            <thead>
-              <tr>
-                <th>Device Node</th>
-                <th>Volume Name</th>
-                <th>Mounted</th>
-                <th>File System</th>
-                <th>Volume Used</th>
-                <th>Disk Size</th>
-              </tr>
-            </thead>
-            <tbody>
-              {diskInfo.map((disk, index) => (
-                <Disk
-                  key={index}
-                  deviceNode={disk.deviceNode}
-                  volumeName={disk.volumeName}
-                  mounted={disk.mounted}
-                  fileSystemPersonality={disk.fileSystemPersonality}
-                  volumeUsedSpace={disk.volumeUsedSpace}
-                  diskSize={disk.diskSize}
-                  onClick={() => handleDiskSelect(disk.deviceNode, disk.volumeName)}
-                  isSelected={disk.deviceNode === selectedDisk}
-                />
-              ))}
-            </tbody>
-          </table>
+        <div className="disk-list">
+          {diskInfo.map((disk, index) => (
+            <Disk
+              key={index}
+              deviceNode={disk.deviceNode}
+              volumeName={disk.volumeName}
+              mounted={disk.mounted}
+              fileSystemPersonality={disk.fileSystemPersonality}
+              volumeUsedSpace={disk.volumeUsedSpace}
+              diskSize={disk.diskSize}
+              onClick={() => handleDiskSelect(disk.deviceNode, disk.volumeName)}
+              isSelected={disk.deviceNode === selectedDisk}
+            />
+          ))}
           <button className="button" onClick={confirmSelection} disabled={!selectedDisk}>
             Confirm Selection
           </button>
