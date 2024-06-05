@@ -4,12 +4,12 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 10px;
   cursor: pointer;
 }
 
 .disk-container.selected {
-  background-color: #f0f8ff;
+  background-color: gray;
 }
 
 .file-system-image {

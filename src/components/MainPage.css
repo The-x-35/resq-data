@@ -19,12 +19,13 @@
   align-items: center;
   z-index: 1; /* Ensure the main content is below the sidebar */
   position: relative; /* Ensure the z-index takes effect */
+  margin-left: 100px;
 }
 
 /* Ensure sidebar does not overlap main content */
 @media (min-width: 769px) {
   .main-content {
-    margin-left: 100px; /* Adjust margin to accommodate the sidebar */
+    margin-left: 300px; /* Adjust margin to accommodate the sidebar */
   }
 }
 
@@ -45,5 +46,6 @@
 
   .main-content {
     margin-top: 60px; /* Ensure the main content starts below the sidebar */
+    margin-left: 290px;
   }
 }
