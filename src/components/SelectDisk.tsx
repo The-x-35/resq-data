@@ -18,8 +18,10 @@ interface SelectDiskProps {
 const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
   const [output, setOutput] = useState<string[]>([]);
   const [diskInfo, setDiskInfo] = useState<DiskInfo[]>([]);
+  const [filteredDiskInfo, setFilteredDiskInfo] = useState<DiskInfo[]>([]);
   const [selectedDisk, setSelectedDisk] = useState<string | null>(null);
   const [selectedVolumeName, setSelectedVolumeName] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     const fetchDiskList = async () => {
@@ -58,6 +60,7 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
         const diskDetails = await Promise.all(infoPromises);
         const uniqueDiskDetails = removeDuplicates(diskDetails.filter(info => info !== null) as DiskInfo[]);
         setDiskInfo(uniqueDiskDetails);
+        setFilteredDiskInfo(uniqueDiskDetails); // Initialize the filtered list
       } catch (error) {
         console.error('Error fetching disk info', error);
       }
@@ -142,12 +145,27 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
     return uniqueDiskDetails;
   };
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    const filteredDisks = diskInfo.filter(disk =>
+      disk.volumeName.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setFilteredDiskInfo(filteredDisks);
+  };
+
   return (
     <div className="select-disk">
-      {diskInfo.length > 0 ? (
+      <input
+        type="text"
+        className="search-box"
+        placeholder="Search by volume name"
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      {filteredDiskInfo.length > 0 ? (
         <>
           <div className="disk-list">
-            {diskInfo.map((disk, index) => (
+            {filteredDiskInfo.map((disk, index) => (
               <Disk
                 key={index}
                 deviceNode={disk.deviceNode}
