@@ -254,3 +254,99 @@
 .disk-list .disk-leaving {
   animation: fadeOut 0.5s forwards;
 }
+
+
+/* Styles for the search box */
+.input-group {
+  width: 35%;
+  height: 100%;
+  background-color: #fff5;
+  padding: 0.8rem 0.8rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  margin-bottom: 20px;
+}
+
+.input-group:hover {
+  width: 45%;
+  background-color: #fff8;
+  box-shadow: 0 0.1rem 0.4rem #0002;
+}
+
+.input-group img {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0 0.5rem 0 0.3rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+
+/* Styles for the confirm button */
+.button {
+  margin-top: 20px;
+  padding: 15px 30px; /* Increased padding */
+  font-size: 1.2em; /* Increased font size */
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Styles for selected disk */
+.selected {
+  background-color: #f0f8ff;
+  transition: background-color 0.3s;
+}
+
+.disk-enter {
+  animation: slideInRight 0.5s ease forwards;
+}
+
+.disk-exit {
+  animation: slideOutLeft 0.5s ease forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './SelectDisk.css';
 import Disk from './ui/disk';
+import search from '../../assets/search.png';
 
 interface DiskInfo {
   deviceNode: string;
@@ -155,13 +156,15 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
 
   return (
     <div className="select-disk">
-      <input
-        type="text"
-        className="search-box"
-        placeholder="Search by volume name"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
+      <div className="input-group">
+        <input
+          type="search"
+          placeholder="Search by volume name"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <img src={search} alt="Search" />
+      </div>
       {filteredDiskInfo.length > 0 ? (
         <>
           <div className="disk-list">
