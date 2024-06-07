@@ -2,6 +2,8 @@ import React from 'react';
 import './Disk.css';
 import apfs from '../../../assets/apfs.svg';
 import ntfs from '../../../assets/ntfs.svg'; // Import the NTFS image
+import exfat from '../../../assets/exfat.svg'; // Import the exFAT image
+import def from '../../../assets/default.svg'; // Import the default image
 
 interface DiskProps {
   deviceNode: string;
@@ -30,9 +32,11 @@ const Disk: React.FC<DiskProps> = ({
         return apfs;
       case 'ntfs':
         return ntfs;
+      case 'exfat':
+        return exfat;
       // Add more cases for different file systems if needed
       default:
-        return ''; // Return a default image or path if needed
+        return def; // Return a default image or path if needed
     }
   };
 
