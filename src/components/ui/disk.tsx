@@ -49,6 +49,7 @@ const Disk: React.FC<DiskProps> = ({
   };
 
   const usagePercentage = calculateUsagePercentage(volumeUsedSpace, diskSize);
+  const formattedUsage = `${volumeUsedSpace} used from ${diskSize}`;
 
   return (
     <div className={`disk-container ${isSelected ? 'selected' : ''}`} onClick={onClick}>
@@ -60,6 +61,7 @@ const Disk: React.FC<DiskProps> = ({
         <div className="progress-bar">
           <div className="progress-bar-fill" style={{ width: `${usagePercentage}%` }}></div>
         </div>
+        <div className="usage-info">{formattedUsage}</div>
         <div className="mounted-info">Mounted: {mounted}</div>
       </div>
     </div>

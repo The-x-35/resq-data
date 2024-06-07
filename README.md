@@ -7,10 +7,7 @@ to build production release
 npm run build
 npm run package
 
-add specific icon in sidebar
 
-
-make the gui with icon of specific file system in the list
 add animation in disk search of disk going and coming
 
 
