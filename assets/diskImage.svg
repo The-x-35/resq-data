@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <g id="disk" transform="translate(-248 -124)">
+    <rect id="Rectangle_37" data-name="Rectangle 37" width="38" height="60" transform="translate(250 126)" fill="#1b8cff" opacity="0.3"/>
+    <path id="Path_148" data-name="Path 148" d="M288,148a8,8,0,0,0,0,16" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.5"/>
+    <path id="Path_149" data-name="Path 149" d="M288,178a22,22,0,0,0,0-44" fill="none" stroke="#1b8cff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path id="Path_150" data-name="Path 150" d="M288,178a22,22,0,0,1,0-44" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" opacity="0.5"/>
+    <rect id="Rectangle_38" data-name="Rectangle 38" width="38" height="60" transform="translate(250 126)" fill="none" stroke="#1b8cff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path id="Path_151" data-name="Path 151" d="M288,164a8,8,0,0,0,0-16" fill="none" stroke="#1b8cff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_152" data-name="Path 152" d="M294.151,169.685a15.006,15.006,0,0,0-.009-27.374" fill="none" stroke="#1b8cff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <line id="Line_288" data-name="Line 288" y1="60" transform="translate(257 126)" fill="none" stroke="#1b8cff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    <path id="Path_153" data-name="Path 153" d="M288,129h11v8" fill="none" stroke="#1b8cff" stroke-linejoin="round" stroke-width="4"/>
+    <path id="Path_154" data-name="Path 154" d="M288,183h11v-8" fill="none" stroke="#1b8cff" stroke-linejoin="round" stroke-width="4"/>
+  </g>
+</svg>

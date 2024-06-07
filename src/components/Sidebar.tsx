@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Sidebar.css';
 import logo from '../../assets/icon.png';
+import sd from '../../assets/selectDisk.svg';
+import di from '../../assets/diskImage.svg';
+import rf from '../../assets/recoverableFiles.svg';
+import r from '../../assets/recovery.svg';
 import { Page } from './MainPage';
 
 interface SidebarProps {
@@ -29,28 +33,28 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectPage, selectedPage }) => {
             className={`sidebar-option ${selectedPage === Page.SelectDisk ? 'active' : ''}`}
             onClick={() => onSelectPage(Page.SelectDisk)}
           >
-            <img src={logo} alt="Select Disk icon" />
+            <img src={sd} alt="Select Disk icon" />
             Select Disk
           </li>
           <li
             className={`sidebar-option ${selectedPage === Page.DiskImage ? 'active' : ''}`}
             onClick={() => onSelectPage(Page.DiskImage)}
           >
-            <img src={logo} alt="Disk Image icon" />
+            <img src={di} alt="Disk Image icon" />
             Disk Image
           </li>
           <li
             className={`sidebar-option ${selectedPage === Page.RecoverableFiles ? 'active' : ''}`}
             onClick={() => onSelectPage(Page.RecoverableFiles)}
           >
-            <img src={logo} alt="Recoverable Files icon" />
+            <img src={rf} alt="Recoverable Files icon" />
             Recoverable files
           </li>
           <li
             className={`sidebar-option ${selectedPage === Page.Recovery ? 'active' : ''}`}
             onClick={() => onSelectPage(Page.Recovery)}
           >
-            <img src={logo} alt="Recovery icon" />
+            <img src={r} alt="Recovery icon" />
             Recovery
           </li>
         </ul>

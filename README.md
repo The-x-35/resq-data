@@ -11,6 +11,7 @@ add specific icon in sidebar
 
 
 make the gui with icon of specific file system in the list
+add animation in disk search of disk going and coming
 
 
 improve ui of disk image page

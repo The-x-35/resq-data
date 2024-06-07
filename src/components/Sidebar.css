@@ -41,6 +41,9 @@
   color: white;
   cursor: pointer;
   transition: background 0.3s;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
 .sidebar-option:hover {
@@ -48,8 +51,8 @@
 }
 
 .sidebar-option img {
-  width: 20px; /* Adjust the size as needed */
-  height: 20px;
+  width: 40px; /* Adjust the size as needed */
+  height: 40px;
   margin-right: 10px; /* Space between the icon and the text */
 }
 
