@@ -51,3 +51,7 @@
   color: white;
   margin-bottom: 5px;
 }
+
+.disk-container:hover {
+  box-shadow: 0 0 80px 0 rgba(0, 0, 255, 0.5); /* Adjust the shadow color and strength as needed */
+}
