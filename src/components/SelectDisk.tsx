@@ -155,40 +155,42 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
   };
 
   return (
-    <div className="select-disk">
-      <div className="input-group">
-        <input
-          type="search"
-          placeholder="Search by volume name"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-        <img src={search} alt="Search" />
+    <div className="select-disk-container">
+      <div className="select-disk">
+        <div className="input-group">
+          <input
+            type="search"
+            placeholder="Search by volume name"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          <img src={search} alt="Search" />
+        </div>
+        {filteredDiskInfo.length > 0 ? (
+          <>
+            <div className="disk-list">
+              {filteredDiskInfo.map((disk, index) => (
+                <Disk
+                  key={index}
+                  deviceNode={disk.deviceNode}
+                  volumeName={disk.volumeName}
+                  mounted={disk.mounted}
+                  fileSystemPersonality={disk.fileSystemPersonality}
+                  volumeUsedSpace={disk.volumeUsedSpace}
+                  diskSize={disk.diskSize}
+                  onClick={() => handleDiskSelect(disk.deviceNode, disk.volumeName)}
+                  isSelected={disk.deviceNode === selectedDisk}
+                />
+              ))}
+            </div>
+            <button className="button" onClick={confirmSelection} disabled={!selectedDisk}>
+              Confirm Selection
+            </button>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
-      {filteredDiskInfo.length > 0 ? (
-        <>
-          <div className="disk-list">
-            {filteredDiskInfo.map((disk, index) => (
-              <Disk
-                key={index}
-                deviceNode={disk.deviceNode}
-                volumeName={disk.volumeName}
-                mounted={disk.mounted}
-                fileSystemPersonality={disk.fileSystemPersonality}
-                volumeUsedSpace={disk.volumeUsedSpace}
-                diskSize={disk.diskSize}
-                onClick={() => handleDiskSelect(disk.deviceNode, disk.volumeName)}
-                isSelected={disk.deviceNode === selectedDisk}
-              />
-            ))}
-          </div>
-          <button className="button" onClick={confirmSelection} disabled={!selectedDisk}>
-            Confirm Selection
-          </button>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
     </div>
   );
 };

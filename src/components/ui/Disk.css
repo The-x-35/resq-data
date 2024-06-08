@@ -1,3 +1,21 @@
+/* Ensure the entire page scrolls */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5; /* Optional: add a background color */
+}
+
+/* Container for the SelectDisk component */
+.select-disk-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow-y: auto; /* Add vertical scrollbar if needed */
+}
+
+/* Disk Container */
 .disk-container {
   display: flex;
   align-items: center;
