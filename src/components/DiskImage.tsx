@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DiskImage.css';
 
 interface DiskImageProps {
-  filesystem: string;
+  deviceNode: string;
+  volumeName: string;
   onShowRecoverableFiles: () => void; // New prop to handle showing recoverable files
 }
 
-const DiskImage: React.FC<DiskImageProps> = ({ filesystem, onShowRecoverableFiles }) => {
+const DiskImage: React.FC<DiskImageProps> = ({ deviceNode, volumeName, onShowRecoverableFiles }) => {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Any necessary logic to handle the selected disk
+    console.log(`Selected Disk: ${deviceNode}, Volume Name: ${volumeName}`);
+  }, [deviceNode, volumeName]);
 
   const handleUnmount = async () => {
     try {
@@ -17,7 +23,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem, onShowRecoverableFile
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ command: `diskutil unmount ${filesystem}` }),
+        body: JSON.stringify({ command: `diskutil unmount ${deviceNode}` }),
       });
       const data = await response.json();
       setOutput(data.output);
@@ -35,7 +41,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem, onShowRecoverableFile
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ command: `sudo dd if=${filesystem} of=../../../disk.img bs=1024k status=progress` }),
+        body: JSON.stringify({ command: `sudo dd if=${deviceNode} of=../../../disk.img bs=1024k status=progress` }),
       });
 
       const reader = response.body?.getReader();
@@ -56,7 +62,8 @@ const DiskImage: React.FC<DiskImageProps> = ({ filesystem, onShowRecoverableFile
   return (
     <div className="disk-image">
       <h1>Selected Disk</h1>
-      <p>Filesystem: {filesystem}</p>
+      <p>Device Node: {deviceNode}</p>
+      <p>Volume Name: {volumeName}</p>
       <button onClick={handleUnmount}>Unmount Disk</button>
       <button onClick={handleCreateDiskImage} disabled={loading}>Make Disk Image</button>
       <button onClick={onShowRecoverableFiles} disabled={loading}>Show Recoverable Files</button>

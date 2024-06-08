@@ -16,10 +16,10 @@ export enum Page {
 
 const MainPage: React.FC = () => {
   const [selectedPage, setSelectedPage] = useState<Page>(Page.SelectDisk);
-  const [selectedFilesystem, setSelectedFilesystem] = useState<string | null>(null);
+  const [selectedDisk, setSelectedDisk] = useState<{ deviceNode: string, volumeName: string } | null>(null);
 
-  const handleDiskSelect = (filesystem: string) => {
-    setSelectedFilesystem(filesystem);
+  const handleDiskSelect = (deviceNode: string, volumeName: string) => {
+    setSelectedDisk({ deviceNode, volumeName });
     setSelectedPage(Page.DiskImage); // Automatically navigate to DiskImage after selecting a disk
   };
 
@@ -36,8 +36,8 @@ const MainPage: React.FC = () => {
       case Page.SelectDisk:
         return <SelectDisk onDiskSelect={handleDiskSelect} />;
       case Page.DiskImage:
-        return selectedFilesystem ? (
-          <DiskImage filesystem={selectedFilesystem} onShowRecoverableFiles={handleShowRecoverableFiles} />
+        return selectedDisk ? (
+          <DiskImage deviceNode={selectedDisk.deviceNode} volumeName={selectedDisk.volumeName} onShowRecoverableFiles={handleShowRecoverableFiles} />
         ) : (
           <p>Please select a filesystem first.</p>
         );

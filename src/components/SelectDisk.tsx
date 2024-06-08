@@ -13,7 +13,7 @@ interface DiskInfo {
 }
 
 interface SelectDiskProps {
-  onDiskSelect: (deviceNode: string) => void;
+  onDiskSelect: (deviceNode: string, volumeName: string) => void;
 }
 
 const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
@@ -131,7 +131,7 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
     if (selectedDisk && selectedVolumeName) {
       const isConfirmed = window.confirm(`Are you sure you want to select "${selectedVolumeName}" ?`);
       if (isConfirmed) {
-        onDiskSelect(selectedDisk);
+        onDiskSelect(selectedDisk, selectedVolumeName);
       } else {
         setSelectedDisk(null);
         setSelectedVolumeName(null);
