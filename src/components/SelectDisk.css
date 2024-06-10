@@ -11,6 +11,10 @@
   overflow-x: auto;
 }
 
+.input-group {
+  margin-top: 100px;
+}
+
 .table-and-button {
   display: flex;
   flex-direction: column;
@@ -93,6 +97,10 @@
   .output-table {
     margin-top: 5px;
   }
+
+  .input-group {
+    margin-top: 100px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -117,6 +125,9 @@
   .button {
     margin-top: 5px;
     margin-right: 5px;
+  }
+  .input-group {
+    margin-top: 100px;
   }
 }
 
@@ -268,6 +279,7 @@
   align-items: center;
   transition: 0.2s;
   margin-bottom: 20px;
+  margin-top: 100px;
 }
 
 .input-group:hover {

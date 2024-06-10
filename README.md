@@ -7,6 +7,7 @@ to build production release
 npm run build
 npm run package
 
+fix the overflow in y on smalll devices
 
 add animation in disk search of disk going and coming
 
