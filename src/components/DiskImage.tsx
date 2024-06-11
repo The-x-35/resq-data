@@ -78,8 +78,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ deviceNode, volumeName, onShowRec
     <div className="di-disk-image">
       <div className="di-header">
         <h1>Selected Disk</h1>
-        <p>Device Node: {deviceNode}</p>
-        <p>Volume Name: {volumeName}</p>
+        <p>Selected Drive: {volumeName} ({deviceNode})</p>
       </div>
       <div className="di-content-container">
         <div className="di-step-container">

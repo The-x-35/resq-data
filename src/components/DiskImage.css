@@ -55,6 +55,7 @@
 .di-step-number {
   font-size: 14px;
   font-weight: bold;
+  color: black;
 }
 
 button {
@@ -89,4 +90,5 @@ button:not(:disabled):hover {
   max-width: 100%;
   overflow-x: auto;
   margin-top: 10px;
+  margin-left: 45px;
 }
