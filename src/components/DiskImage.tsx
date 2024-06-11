@@ -1,3 +1,4 @@
+// diskimage.tsx
 import React, { useState, useEffect } from 'react';
 import './DiskImage.css';
 import tick from '../../assets/tick.svg'; // Ensure this path is correct and the file exists
@@ -74,44 +75,51 @@ const DiskImage: React.FC<DiskImageProps> = ({ deviceNode, volumeName, onShowRec
     setCurrentStep([currentStep[0], currentStep[1], 1]);
   };
 
+  const progressHeight = `${(currentStep.filter(step => step === 1).length / currentStep.length) * 100}%`;
+
   return (
-    <div className="di-disk-image">
-      <div className="di-header">
-        <h1>Selected Disk</h1>
-        <p>Selected Drive: {volumeName} ({deviceNode})</p>
-      </div>
-      <div className="di-content-container">
-        <div className="di-step-container">
-          <div className="di-circle-container">
-            <div className={`di-circle ${currentStep[0] ? 'di-completed' : ''}`}>
-              {currentStep[0] ? <img src={tick} alt="Tick" /> : <span className="di-step-number">1</span>}
-            </div>
-            <button onClick={handleUnmount} disabled={loading}>Unmount Disk</button>
-          </div>
-          <div className="di-output-box">
-            <pre>{output[0]}</pre>
-          </div>
+    <div className="di-container">
+      <div className="di-disk-image">
+        <div className="di-progress-bar">
+          <div className="di-progress" style={{ height: progressHeight }}></div>
         </div>
-        <div className="di-step-container">
-          <div className="di-circle-container">
-            <div className={`di-circle ${currentStep[1] ? 'di-completed' : ''}`}>
-              {currentStep[1] ? <img src={tick} alt="Tick" /> : <span className="di-step-number">2</span>}
-            </div>
-            <button onClick={handleCreateDiskImage} disabled={loading}>Make Disk Image</button>
-          </div>
-          <div className="di-output-box">
-            <pre>{output[1]}</pre>
-          </div>
+        <div className="di-header">
+          <h1>Selected Disk</h1>
+          <p>Selected Drive: {volumeName} ({deviceNode})</p>
         </div>
-        <div className="di-step-container">
-          <div className="di-circle-container">
-            <div className={`di-circle ${currentStep[2] ? 'di-completed' : ''}`}>
-              {currentStep[2] ? <img src={tick} alt="Tick" /> : <span className="di-step-number">3</span>}
+        <div className="di-content-container">
+          <div className="di-step-container">
+            <div className="di-circle-container">
+              <div className={`di-circle ${currentStep[0] ? 'di-completed' : ''}`}>
+                {currentStep[0] ? <img src={tick} alt="Tick" /> : <span className="di-step-number">1</span>}
+              </div>
+              <button onClick={handleUnmount} disabled={loading}>Unmount Disk</button>
             </div>
-            <button onClick={handleShowRecoverableFiles} disabled={loading}>Show Recoverable Files</button>
+            <div className="di-output-box">
+              <pre>{output[0]}</pre>
+            </div>
           </div>
-          <div className="di-output-box">
-            <pre>{output[2]}</pre>
+          <div className="di-step-container">
+            <div className="di-circle-container">
+              <div className={`di-circle ${currentStep[1] ? 'di-completed' : ''}`}>
+                {currentStep[1] ? <img src={tick} alt="Tick" /> : <span className="di-step-number">2</span>}
+              </div>
+              <button onClick={handleCreateDiskImage} disabled={loading}>Make Disk Image</button>
+            </div>
+            <div className="di-output-box">
+              <pre>{output[1]}</pre>
+            </div>
+          </div>
+          <div className="di-step-container">
+            <div className="di-circle-container">
+              <div className={`di-circle ${currentStep[2] ? 'di-completed' : ''}`}>
+                {currentStep[2] ? <img src={tick} alt="Tick" /> : <span className="di-step-number">3</span>}
+              </div>
+              <button onClick={handleShowRecoverableFiles} disabled={loading}>Show Recoverable Files</button>
+            </div>
+            <div className="di-output-box">
+              <pre>{output[2]}</pre>
+            </div>
           </div>
         </div>
       </div>
