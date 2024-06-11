@@ -60,7 +60,7 @@ const DiskImage: React.FC<DiskImageProps> = ({ deviceNode, volumeName, onShowRec
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        setOutput((prev) => [prev[0], prev[1] + decoder.decode(value), prev[2]]);
+        setOutput((prev) => [prev[0], decoder.decode(value), prev[2]]);
       }
       setCurrentStep([currentStep[0], 1, currentStep[2]]);
     } catch (error) {
