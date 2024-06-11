@@ -117,9 +117,6 @@ const DiskImage: React.FC<DiskImageProps> = ({ deviceNode, volumeName, onShowRec
               </div>
               <button onClick={handleShowRecoverableFiles} disabled={loading}>Show Recoverable Files</button>
             </div>
-            <div className="di-output-box">
-              <pre>{output[2]}</pre>
-            </div>
           </div>
         </div>
       </div>
