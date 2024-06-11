@@ -1,13 +1,92 @@
-.disk-image {
-  font-family: Arial, sans-serif;
-  max-width: 600px;
-  margin: 20px auto;
+.di-disk-image {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  border: 1px solid rgba(0, 128, 0, 0.2); /* Greenish tint */
-  border-radius: 12px;
-  background-color: rgba(0, 128, 0, 0.1); /* Lighter greenish tint */
-  backdrop-filter: blur(10px); /* Blur effect */
-  color: rgba(255, 255, 255, 0.9); /* White text */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  align-items: center;
+}
+
+.di-header {
+  margin-bottom: 20px;
   text-align: center;
+}
+
+.di-content-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+.di-step-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.di-circle-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.di-circle {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.di-circle.di-completed {
+  border-color: green;
+  background-color: white;
+}
+
+.di-circle img {
+  width: 20px;
+  height: 20px;
+}
+
+.di-step-number {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button {
+  padding: 12px 20px; /* Increased padding for better spacing */
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Prevent text overflow */
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+.di-output-box {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 100%;
+  overflow-x: auto;
+  margin-top: 10px;
 }
