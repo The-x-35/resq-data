@@ -1,54 +1,74 @@
+/* RecoverableFiles.css */
+
 .recoverable-files {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-}
-
-.table-and-button {
-  margin-top: 20px;
-}
-
-.output-table {
   width: 100%;
-  border-collapse: collapse;
+  box-sizing: border-box;
 }
 
-.output-table th,
-.output-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.grid-and-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.output-table th {
-  /* background-color: #f2f2f2; */
-  text-align: left;
-}
-
-.output-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-
-.recoverable-files .button {
+.filesystem-grid {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  max-width: 1200px;
   margin-top: 20px;
-  padding: 10px 20px;
+}
+
+/* Responsive grid adjustments */
+@media (min-width: 1200px) {
+  .filesystem-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row for large screens */
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .filesystem-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row for medium screens */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .filesystem-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 items per row for small screens */
+  }
+}
+
+@media (max-width: 767px) {
+  .filesystem-grid {
+    margin-top: 100px;
+    grid-template-columns: 1fr; /* 1 item per row for extra small screens */
+  }
+}
+
+.recover-button {
+  margin-top: 20px;
+  padding: 15px 30px; /* Increased padding */
+  font-size: 1.2em; /* Increased font size */
+  cursor: pointer;
   background-color: #007bff;
   color: #fff;
   border: none;
-  cursor: pointer;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.recoverable-files .button:hover {
-  background-color: #0056b3;
+.recover-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly larger on hover */
 }
 
-.recovery {
-  padding: 20px;
-}
-
-.recovery h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.recovery p {
-  font-size: 16px;
+.recover-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }

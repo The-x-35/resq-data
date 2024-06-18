@@ -1,14 +1,16 @@
+// RecoverableFiles.tsx
 import React, { useState, useEffect } from 'react';
 import './RecoverableFiles.css';
+import FileSystemObject from './ui/FileSystemObject';
 
 interface FLSOutput {
-  inode: string;
   fileType: string;
+  inode: string;
   fileName: string;
 }
 
 interface RecoverableFilesProps {
-  onRecoverAllFiles: () => void; // Add a prop for handling navigation
+  onRecoverAllFiles: () => void;
 }
 
 const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }) => {
@@ -38,8 +40,8 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }
   const formatFLSOutput = (output: string): FLSOutput[] => {
     const lines = output.split('\n');
     const formattedData = lines.filter(Boolean).map(line => {
-      const [inode, fileType, fileName] = line.split(/\s+/);
-      return { inode, fileType, fileName };
+      const [fileType, inode, fileName] = line.split(/\s+/);
+      return { fileType, inode, fileName };
     });
     return formattedData;
   };
@@ -47,26 +49,18 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }
   return (
     <div className="recoverable-files">
       {output.length > 0 ? (
-        <div className="table-and-button">
-          <table className="output-table">
-            <thead>
-              <tr>
-                <th>Inode</th>
-                <th>Type</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {output.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.inode}</td>
-                  <td>{row.fileType}</td>
-                  <td>{row.fileName}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button className="button" onClick={onRecoverAllFiles}>
+        <div className="grid-and-button">
+          <div className="filesystem-grid">
+            {output.map((row, index) => (
+              <FileSystemObject
+                key={index}
+                fileType={row.fileType}
+                inode={row.inode}
+                fileName={row.fileName}
+              />
+            ))}
+          </div>
+          <button className="recover-button" onClick={onRecoverAllFiles}>
             Recover All Files
           </button>
         </div>

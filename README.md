@@ -9,18 +9,15 @@ npm run package
 
 fix the overflow in y on smalll devices
 
+sd page % correct unit
+
 add animation in disk search of disk going and coming
 
 
-improve ui of disk image page
-add a progress bar with 4 points and line
-
-
-implement the tsk ui by arpit in recoverable files page
 add search box and make it work
 add select specific files and folder recovery
-implement the folder and icon design of a file manager
-
+implement specific icons based on the docs ( https://wiki.sleuthkit.org/index.php?title=Fls )
+add specific icon for each file extension
 
 in recovery page handle the errors correctly 
 show improved progress bar
