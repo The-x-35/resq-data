@@ -11,31 +11,36 @@ interface FLSOutput {
 
 interface RecoverableFilesProps {
   onRecoverAllFiles: () => void;
+  parentInode?: string; // Optional parent inode to fetch directory contents
 }
 
-const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }) => {
+const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, parentInode }) => {
   const [output, setOutput] = useState<FLSOutput[]>([]);
+  const [command, setCommand] = useState<string>(''); // State to store the command
+
+  const fetchFLSOutput = async (inode?: string) => {
+    try {
+      const commandInode = inode ? inode.replace(/:$/, '') : ''; // Remove colon from the end of inode
+      const newCommand = commandInode ? `fls ../../../disk.img ${commandInode}` : 'fls ../../../disk.img';
+      setCommand(newCommand); // Store the command
+      const response = await fetch('http://localhost:5001/execute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command: newCommand }),
+      });
+      const data = await response.json();
+      const formattedOutput = formatFLSOutput(data.output);
+      setOutput(formattedOutput);
+    } catch (error) {
+      console.error('Error executing command', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchFLSOutput = async () => {
-      try {
-        const response = await fetch('http://localhost:5001/execute', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ command: 'fls ../../../disk.img' }),
-        });
-        const data = await response.json();
-        const formattedOutput = formatFLSOutput(data.output);
-        setOutput(formattedOutput);
-      } catch (error) {
-        console.error('Error executing command', error);
-      }
-    };
-
-    fetchFLSOutput();
-  }, []);
+    fetchFLSOutput(parentInode);
+  }, [parentInode]);
 
   const formatFLSOutput = (output: string): FLSOutput[] => {
     const lines = output.split('\n');
@@ -44,6 +49,10 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }
       return { fileType, inode, fileName };
     });
     return formattedData;
+  };
+
+  const handleDoubleClick = (inode: string) => {
+    fetchFLSOutput(inode.replace(/:$/, '')); // Refresh the command and output
   };
 
   return (
@@ -57,6 +66,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles }
                 fileType={row.fileType}
                 inode={row.inode}
                 fileName={row.fileName}
+                onDoubleClick={handleDoubleClick}
               />
             ))}
           </div>

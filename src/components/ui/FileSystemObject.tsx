@@ -8,9 +8,10 @@ interface FileSystemObjectProps {
   fileType: string;
   inode: string;
   fileName: string;
+  onDoubleClick: (inode: string) => void;
 }
 
-const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fileName }) => {
+const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fileName, onDoubleClick }) => {
   const getIcon = () => {
     switch (fileType) {
       case 'd/d':
@@ -23,7 +24,7 @@ const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fi
   };
 
   return (
-    <div className="filesystem-object" title={`Inode: ${inode}`}>
+    <div className="filesystem-object" title={`Inode: ${inode}`} onDoubleClick={() => (fileType != 'r/r') && onDoubleClick(inode)}>
       <img src={getIcon()} alt={fileType} className="filesystem-object-icon" />
       <p className="filesystem-object-name">{fileName}</p>
     </div>
