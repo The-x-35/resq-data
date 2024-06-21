@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './RecoverableFiles.css';
 import FileSystemObject from './ui/FileSystemObject';
+import backIcon from '../../assets/back.svg';
 
 interface FLSOutput {
   fileType: string;
@@ -17,6 +18,7 @@ interface RecoverableFilesProps {
 const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, parentInode }) => {
   const [output, setOutput] = useState<FLSOutput[]>([]);
   const [command, setCommand] = useState<string>(''); // State to store the command
+  const [history, setHistory] = useState<{ command: string, output: FLSOutput[] }[]>([]); // State to store the history
 
   const fetchFLSOutput = async (inode?: string) => {
     try {
@@ -32,6 +34,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
       });
       const data = await response.json();
       const formattedOutput = formatFLSOutput(data.output);
+      setHistory(prevHistory => [...prevHistory, { command: newCommand, output: formattedOutput }]); // Update history
       setOutput(formattedOutput);
     } catch (error) {
       console.error('Error executing command', error);
@@ -55,8 +58,31 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
     fetchFLSOutput(inode.replace(/:$/, '')); // Refresh the command and output
   };
 
+  const handleBack = () => {
+    setHistory(prevHistory => {
+      const newHistory = [...prevHistory];
+      newHistory.pop(); // Remove the last command from the history
+      const lastState = newHistory[newHistory.length - 1]; // Get the last state from the history
+      if (lastState) {
+        setCommand(lastState.command);
+        setOutput(lastState.output);
+      } else {
+        fetchFLSOutput(parentInode); // If no history left, fetch the original parent inode
+      }
+      return newHistory;
+    });
+  };
+
   return (
     <div className="recoverable-files">
+      <div className="navigation-bar">
+        {history.length > 1 && (
+          <button className="back-button" onClick={handleBack}>
+            <img src={backIcon} alt="Back" className="back-icon" />
+            <span>Back</span>
+          </button>
+        )}
+      </div>
       {output.length > 0 ? (
         <div className="grid-and-button">
           <div className="filesystem-grid">

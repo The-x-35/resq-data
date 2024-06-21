@@ -9,6 +9,35 @@
   box-sizing: border-box;
 }
 
+.navigation-bar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
 .grid-and-button {
   display: flex;
   flex-direction: column;
