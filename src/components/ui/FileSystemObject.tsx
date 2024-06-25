@@ -12,7 +12,7 @@ interface FileSystemObjectProps {
   hasAsterisk: boolean; // Add the hasAsterisk prop
 }
 
-const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fileName, onDoubleClick }) => {
+const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fileName, onDoubleClick, hasAsterisk }) => {
   const getIcon = () => {
     switch (fileType) {
       case 'd/d':
@@ -25,7 +25,11 @@ const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fi
   };
 
   return (
-    <div className="filesystem-object" title={`Inode: ${inode}`} onDoubleClick={() => (fileType != 'r/r') && onDoubleClick(inode)}>
+    <div
+      className={`filesystem-object ${hasAsterisk ? 'has-asterisk' : ''}`}
+      title={`Inode: ${inode}`}
+      onDoubleClick={() => fileType !== 'r/r' && onDoubleClick(inode)}
+    >
       <img src={getIcon()} alt={fileType} className="filesystem-object-icon" />
       <p className="filesystem-object-name">{fileName}</p>
     </div>

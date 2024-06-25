@@ -20,6 +20,7 @@
 .filesystem-object-icon {
   width: 50px;
   height: 50px;
+  opacity: 0.5; /* Default opacity */
 }
 
 .filesystem-object-name {
@@ -28,6 +29,13 @@
   word-wrap: break-word;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.9);
+  opacity: 0.5; /* Default opacity */
+}
+
+/* Fully opaque icon and text if has asterisk */
+.filesystem-object.has-asterisk .filesystem-object-icon,
+.filesystem-object.has-asterisk .filesystem-object-name {
+  opacity: 1;
 }
 
 /* Additional styles for tooltips */
