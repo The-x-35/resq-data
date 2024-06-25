@@ -8,6 +8,7 @@ interface FLSOutput {
   fileType: string;
   inode: string;
   fileName: string;
+  hasAsterisk: boolean;
 }
 
 interface RecoverableFilesProps {
@@ -48,8 +49,12 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
   const formatFLSOutput = (output: string): FLSOutput[] => {
     const lines = output.split('\n');
     const formattedData = lines.filter(Boolean).map(line => {
-      const [fileType, inode, fileName] = line.split(/\s+/);
-      return { fileType, inode, fileName };
+      const parts = line.split(/\s+/);
+      const fileType = parts[0];
+      const hasAsterisk = parts[1] === '*';
+      const inode = hasAsterisk ? parts[2] : parts[1];
+      const fileName = hasAsterisk ? parts.slice(3).join(' ') : parts.slice(2).join(' ');
+      return { fileType, inode, fileName, hasAsterisk };
     });
     return formattedData;
   };
@@ -92,6 +97,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
                 fileType={row.fileType}
                 inode={row.inode}
                 fileName={row.fileName}
+                hasAsterisk={row.hasAsterisk} // Pass the asterisk flag to the FileSystemObject component
                 onDoubleClick={handleDoubleClick}
               />
             ))}

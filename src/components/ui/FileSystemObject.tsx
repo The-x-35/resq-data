@@ -9,6 +9,7 @@ interface FileSystemObjectProps {
   inode: string;
   fileName: string;
   onDoubleClick: (inode: string) => void;
+  hasAsterisk: boolean; // Add the hasAsterisk prop
 }
 
 const FileSystemObject: React.FC<FileSystemObjectProps> = ({ fileType, inode, fileName, onDoubleClick }) => {
