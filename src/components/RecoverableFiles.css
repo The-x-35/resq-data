@@ -13,7 +13,12 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  /* background-color: #343a40; */
+  margin-left: 450px;
+  margin-top: 20px;
 }
 
 .back-button {
@@ -57,6 +62,7 @@
   width: 100%;
   max-height: 80vh; /* Add a maximum height to prevent overflow */
   overflow-y: auto; /* Enable vertical scrolling */
+  box-sizing: border-box;
 }
 
 .filesystem-grid {
