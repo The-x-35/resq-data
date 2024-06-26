@@ -1,8 +1,10 @@
 // RecoverableFiles.tsx
+
 import React, { useState, useEffect } from 'react';
 import './RecoverableFiles.css';
 import FileSystemObject from './ui/FileSystemObject';
 import backIcon from '../../assets/back.svg';
+import EyeToggle from '../components/ui/EyeToggle'; // Import the EyeToggle component
 
 interface FLSOutput {
   fileType: string;
@@ -20,6 +22,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
   const [output, setOutput] = useState<FLSOutput[]>([]);
   const [command, setCommand] = useState<string>(''); // State to store the command
   const [history, setHistory] = useState<{ command: string, output: FLSOutput[] }[]>([]); // State to store the history
+  const [showAllFiles, setShowAllFiles] = useState<boolean>(false); // State to toggle showing all files
 
   const fetchFLSOutput = async (inode?: string) => {
     try {
@@ -78,6 +81,10 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
     });
   };
 
+  const handleToggleChange = (isChecked: boolean) => {
+    setShowAllFiles(isChecked);
+  };
+
   return (
     <div className="recoverable-files">
       <div className="navigation-bar">
@@ -87,19 +94,25 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
             <span>Back</span>
           </button>
         )}
+        <div className="toggle-div">
+          <span>Show all files</span>
+          <EyeToggle onChange={handleToggleChange} />
+        </div>
       </div>
       {output.length > 0 ? (
         <div className="grid-and-button">
           <div className="filesystem-grid">
             {output.map((row, index) => (
-              <FileSystemObject
-                key={index}
-                fileType={row.fileType}
-                inode={row.inode}
-                fileName={row.fileName}
-                hasAsterisk={row.hasAsterisk} // Pass the asterisk flag to the FileSystemObject component
-                onDoubleClick={handleDoubleClick}
-              />
+              (!showAllFiles && row.hasAsterisk) || showAllFiles ? (
+                <FileSystemObject
+                  key={index}
+                  fileType={row.fileType}
+                  inode={row.inode}
+                  fileName={row.fileName}
+                  hasAsterisk={row.hasAsterisk} // Pass the asterisk flag to the FileSystemObject component
+                  onDoubleClick={handleDoubleClick}
+                />
+              ) : null
             ))}
           </div>
           <button className="recover-button" onClick={onRecoverAllFiles}>
