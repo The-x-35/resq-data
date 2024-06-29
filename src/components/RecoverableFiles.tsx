@@ -1,5 +1,4 @@
 // RecoverableFiles.tsx
-
 import React, { useState, useEffect } from 'react';
 import './RecoverableFiles.css';
 import FileSystemObject from './ui/FileSystemObject';
@@ -14,7 +13,7 @@ interface FLSOutput {
 }
 
 interface RecoverableFilesProps {
-  onRecoverAllFiles: () => void;
+  onRecoverAllFiles: (selectedInodes: string[]) => void; // Pass selected inodes to the recovery function
   parentInode?: string; // Optional parent inode to fetch directory contents
 }
 
@@ -23,6 +22,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
   const [command, setCommand] = useState<string>(''); // State to store the command
   const [history, setHistory] = useState<{ command: string, output: FLSOutput[] }[]>([]); // State to store the history
   const [showAllFiles, setShowAllFiles] = useState<boolean>(false); // State to toggle showing all files
+  const [selectedInodes, setSelectedInodes] = useState<Set<string>>(new Set()); // State to store selected inodes
 
   const fetchFLSOutput = async (inode?: string) => {
     try {
@@ -85,6 +85,31 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
     setShowAllFiles(isChecked);
   };
 
+  const handleSelectionChange = (inode: string) => {
+    setSelectedInodes(prevSelectedInodes => {
+      const newSelectedInodes = new Set(prevSelectedInodes);
+      if (newSelectedInodes.has(inode)) {
+        newSelectedInodes.delete(inode);
+      } else {
+        newSelectedInodes.add(inode);
+      }
+      return newSelectedInodes;
+    });
+  };
+
+  const handleSelectAll = (isChecked: boolean) => {
+    if (isChecked) {
+      const allInodes = output.map(row => row.inode);
+      setSelectedInodes(new Set(allInodes));
+    } else {
+      setSelectedInodes(new Set());
+    }
+  };
+
+  const handleRecover = () => {
+    onRecoverAllFiles(Array.from(selectedInodes));
+  };
+
   return (
     <div className="recoverable-files">
       <div className="navigation-bar">
@@ -101,6 +126,15 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
       </div>
       {output.length > 0 ? (
         <div className="grid-and-button">
+          <div className="select-all-div">
+            <input
+              type="checkbox"
+              id="select-all"
+              onChange={(e) => handleSelectAll(e.target.checked)}
+              checked={selectedInodes.size === output.length}
+            />
+            <label htmlFor="select-all">Select all</label>
+          </div>
           <div className="filesystem-grid">
             {output.map((row, index) => (
               (!showAllFiles && row.hasAsterisk) || showAllFiles ? (
@@ -111,12 +145,14 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
                   fileName={row.fileName}
                   hasAsterisk={row.hasAsterisk} // Pass the asterisk flag to the FileSystemObject component
                   onDoubleClick={handleDoubleClick}
+                  isSelected={selectedInodes.has(row.inode)}
+                  onSelectionChange={handleSelectionChange}
                 />
               ) : null
             ))}
           </div>
-          <button className="recover-button" onClick={onRecoverAllFiles}>
-            Recover All Files
+          <button className="recover-button" onClick={handleRecover}>
+            Recover
           </button>
         </div>
       ) : (

@@ -123,3 +123,10 @@
   background-color: #aaa;
   cursor: not-allowed;
 }
+
+
+.select-all-div {
+  display: flex;
+  justify-content: left;
+  align-self: normal;
+}
