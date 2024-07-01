@@ -29,6 +29,7 @@ const MainPage: React.FC = () => {
   const [selectedDisk, setSelectedDisk] = useState<{ deviceNode: string, volumeName: string } | null>(null);
   const [input, setInput] = useState<string>(''); // State to track cheat code input
   const [easterEggComponent, setEasterEggComponent] = useState<React.ReactNode | null>(null); // State to show Easter egg component
+  const [recoveryData, setRecoveryData] = useState<string | string[]>(''); // State to store recovery data
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -58,7 +59,8 @@ const MainPage: React.FC = () => {
     setSelectedPage(Page.RecoverableFiles); // Navigate to RecoverableFiles page
   };
 
-  const handleRecoverAllFiles = () => {
+  const handleRecoverAllFiles = (selectedInodes: string[] | 'recover_all') => {
+    setRecoveryData(selectedInodes);
     setSelectedPage(Page.Recovery); // Navigate to Recovery page
   };
 
@@ -79,7 +81,7 @@ const MainPage: React.FC = () => {
       case Page.RecoverableFiles:
         return <RecoverableFiles onRecoverAllFiles={handleRecoverAllFiles} />;
       case Page.Recovery:
-        return <Recovery />;
+        return <Recovery recoveryData={recoveryData} />;
       default:
         return <SelectDisk onDiskSelect={handleDiskSelect} />;
     }

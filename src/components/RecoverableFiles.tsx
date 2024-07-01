@@ -1,4 +1,3 @@
-// RecoverableFiles.tsx
 import React, { useState, useEffect } from 'react';
 import './RecoverableFiles.css';
 import FileSystemObject from './ui/FileSystemObject';
@@ -13,7 +12,7 @@ interface FLSOutput {
 }
 
 interface RecoverableFilesProps {
-  onRecoverAllFiles: (selectedInodes: string[]) => void; // Pass selected inodes to the recovery function
+  onRecoverAllFiles: (selectedInodes: string[] | 'recover_all') => void; // Pass selected inodes or "recover_all" to the recovery function
   parentInode?: string; // Optional parent inode to fetch directory contents
 }
 
@@ -23,6 +22,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
   const [history, setHistory] = useState<{ command: string, output: FLSOutput[] }[]>([]); // State to store the history
   const [showAllFiles, setShowAllFiles] = useState<boolean>(false); // State to toggle showing all files
   const [selectedInodes, setSelectedInodes] = useState<Set<string>>(new Set()); // State to store selected inodes
+  const [isSelectAllChecked, setIsSelectAllChecked] = useState<boolean>(false); // State to track "select all" checkbox
 
   const fetchFLSOutput = async (inode?: string) => {
     try {
@@ -93,11 +93,13 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
       } else {
         newSelectedInodes.add(inode);
       }
+      setIsSelectAllChecked(newSelectedInodes.size === output.length); // Update "select all" checkbox state
       return newSelectedInodes;
     });
   };
 
   const handleSelectAll = (isChecked: boolean) => {
+    setIsSelectAllChecked(isChecked);
     if (isChecked) {
       const allInodes = output.map(row => row.inode);
       setSelectedInodes(new Set(allInodes));
@@ -107,7 +109,11 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
   };
 
   const handleRecover = () => {
-    onRecoverAllFiles(Array.from(selectedInodes));
+    if (isSelectAllChecked) {
+      onRecoverAllFiles('recover_all');
+    } else {
+      onRecoverAllFiles(Array.from(selectedInodes));
+    }
   };
 
   return (
@@ -131,7 +137,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
               type="checkbox"
               id="select-all"
               onChange={(e) => handleSelectAll(e.target.checked)}
-              checked={selectedInodes.size === output.length}
+              checked={isSelectAllChecked}
             />
             <label htmlFor="select-all">Select all</label>
           </div>

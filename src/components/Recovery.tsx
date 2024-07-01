@@ -1,43 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Recovery.css';
 
-const Recovery: React.FC = () => {
+interface RecoveryProps {
+  recoveryData: string | string[]; // Receive recoveryData as a prop
+}
+
+const Recovery: React.FC<RecoveryProps> = ({ recoveryData }) => {
   const [output, setOutput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleRecovery = async () => {
-    setLoading(true);
-    setOutput('');
-    try {
-      const response = await fetch('http://localhost:5001/execute-stream', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ command: 'tsk_recover ../../../disk.img ../../../ResQed_Data/' }),
-      });
+  useEffect(() => {
+    const handleRecovery = async () => {
+      setLoading(true);
+      setOutput('');
+      try {
+        const command = recoveryData === 'recover_all' ? 
+          'tsk_recover ../../../disk.img ../../../ResQed_Data/' : 
+          `Wip`;
 
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder('utf-8');
+        const response = await fetch('http://localhost:5001/execute-stream', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ command }),
+        });
 
-      while (true) {
-        const { done, value } = await reader?.read()!;
-        if (done) break;
-        setOutput((prevOutput) => prevOutput + decoder.decode(value));
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        while (true) {
+          const { done, value } = await reader?.read()!;
+          if (done) break;
+          setOutput((prevOutput) => prevOutput + decoder.decode(value));
+        }
+      } catch (error) {
+        setOutput('Error executing command');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setOutput('Error executing command');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    handleRecovery();
+  }, [recoveryData]);
 
   return (
     <div className="recovery">
       <h1>Recovering Files</h1>
-      <button className="button" onClick={handleRecovery} disabled={loading}>
-        Start Recovery
-      </button>
+      <p>Recovery Data: {Array.isArray(recoveryData) ? recoveryData.join(', ') : recoveryData}</p>
       <div className="output-box">
         {loading ? <p>Loading...</p> : <pre>{output}</pre>}
       </div>
