@@ -12,7 +12,7 @@ interface FLSOutput {
 }
 
 interface RecoverableFilesProps {
-  onRecoverAllFiles: (selectedInodes: string[] | 'recover_all') => void; // Pass selected inodes or "recover_all" to the recovery function
+  onRecoverAllFiles: (selectedData: Array<[string, string, string]> | 'recover_all') => void; // Pass selected data or "recover_all" to the recovery function
   parentInode?: string; // Optional parent inode to fetch directory contents
 }
 
@@ -112,7 +112,11 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
     if (isSelectAllChecked) {
       onRecoverAllFiles('recover_all');
     } else {
-      onRecoverAllFiles(Array.from(selectedInodes));
+      const selectedData = Array.from(selectedInodes).map(inode => {
+        const selectedFile = output.find(file => file.inode === inode);
+        return [selectedFile?.inode, selectedFile?.fileName, selectedFile?.fileType];
+      }) as Array<[string, string, string]>;
+      onRecoverAllFiles(selectedData);
     }
   };
 
