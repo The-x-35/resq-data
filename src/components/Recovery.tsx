@@ -14,9 +14,20 @@ const Recovery: React.FC<RecoveryProps> = ({ recoveryData }) => {
       setLoading(true);
       setOutput('');
       try {
-        const command = recoveryData === 'recover_all' ? 
-          'tsk_recover ../../../disk.img ../../../ResQed_Data/' : 
-          `Wip`; // Placeholder for actual command
+        let command = '';
+        if (recoveryData === 'recover_all') {
+          command = 'tsk_recover ../../../disk.img ../../../ResQed_Data/';
+        } else if (Array.isArray(recoveryData)) {
+          command = 'mkdir -p ../../../ResQed_Data && ';
+          for (const [inode, fileName, fileType] of recoveryData) {
+            if (fileType === 'r/r') {
+              const trimmedInode = inode.replace(/:$/, '');
+              const escapedFileName = fileName.replace(/ /g, '\\ ');
+              command += `icat ../../../disk.img ${trimmedInode} > ../../../ResQed_Data/${escapedFileName} && `;
+            }
+          }
+          command = command.slice(0, -4); // Remove the last ' && ' from the command string
+        }
 
         const response = await fetch('http://localhost:5001/execute-stream', {
           method: 'POST',
