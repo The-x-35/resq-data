@@ -78,11 +78,6 @@ To build production release
 
 
 
-- add backup scheduler
-
-
-
-
 ## Screenshots
 
 ![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/Screenshot%202024-06-30%20at%203.01.27%E2%80%AFAM.png?raw=true)

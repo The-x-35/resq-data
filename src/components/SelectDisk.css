@@ -362,3 +362,14 @@
   }
 }
 
+
+.scheduler-controls{
+  display: grid;
+  justify-content: left;
+  /* margin: 10px; */
+  grid-gap: 10px;
+}
+
+.sd-instruction{
+  font-size: 20px;
+}
