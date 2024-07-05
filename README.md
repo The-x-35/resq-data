@@ -66,7 +66,6 @@ To build production release
 - add animation in disk search of disk going and coming
 
 
-- add search box and make it work
 - implement specific icons based on the docs ( https://wiki.sleuthkit.org/index.php?title=Fls )
 - add specific icon for each file extension
 

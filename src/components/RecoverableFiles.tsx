@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './RecoverableFiles.css';
 import FileSystemObject from './ui/FileSystemObject';
 import backIcon from '../../assets/back.svg';
-import EyeToggle from '../components/ui/EyeToggle'; // Import the EyeToggle component
+import EyeToggle from '../components/ui/EyeToggle';
+import searchIcon from '../../assets/search.png'; // Import the search icon
 
 interface FLSOutput {
   fileType: string;
@@ -23,6 +24,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
   const [showAllFiles, setShowAllFiles] = useState<boolean>(false); // State to toggle showing all files
   const [selectedInodes, setSelectedInodes] = useState<Set<string>>(new Set()); // State to store selected inodes
   const [isSelectAllChecked, setIsSelectAllChecked] = useState<boolean>(false); // State to track "select all" checkbox
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const fetchFLSOutput = async (inode?: string) => {
     try {
@@ -120,6 +122,14 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
     }
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredOutput = output.filter(row =>
+    row.fileName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="recoverable-files">
       <div className="navigation-bar">
@@ -134,6 +144,15 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
           <EyeToggle onChange={handleToggleChange} />
         </div>
       </div>
+      <div className="input-group">
+        <input
+          type="search"
+          placeholder="Search files and folders"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        <img src={searchIcon} alt="Search" />
+      </div>
       {output.length > 0 ? (
         <div className="grid-and-button">
           <div className="select-all-div">
@@ -146,7 +165,7 @@ const RecoverableFiles: React.FC<RecoverableFilesProps> = ({ onRecoverAllFiles, 
             <label htmlFor="select-all">Select all</label>
           </div>
           <div className="filesystem-grid">
-            {output.map((row, index) => (
+            {filteredOutput.map((row, index) => (
               (!showAllFiles && row.hasAsterisk) || showAllFiles ? (
                 <FileSystemObject
                   key={index}

@@ -130,3 +130,38 @@
   justify-content: left;
   align-self: normal;
 }
+
+
+/* Styles for the search box */
+.input-group {
+  width: 35%;
+  height: 100%;
+  background-color: #fff5;
+  padding: 0.8rem 0.8rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  margin-bottom: 20px;
+  margin-top: 100px;
+}
+
+.input-group:hover {
+  width: 45%;
+  background-color: #fff8;
+  box-shadow: 0 0.1rem 0.4rem #0002;
+}
+
+.input-group img {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0 0.5rem 0 0.3rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
