@@ -63,8 +63,6 @@ To build production release
 
 - fix the overflow in y on smalll devices
 
-- sd page % correct unit
-
 - add animation in disk search of disk going and coming
 
 
