@@ -8,11 +8,13 @@ interface RecoveryProps {
 const Recovery: React.FC<RecoveryProps> = ({ recoveryData }) => {
   const [output, setOutput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     const handleRecovery = async () => {
       setLoading(true);
       setOutput('');
+      setSuccess(false);
 
       try {
         const buildCommand = async (recoveryData: Array<[string, string, string]>) => {
@@ -93,6 +95,8 @@ const Recovery: React.FC<RecoveryProps> = ({ recoveryData }) => {
           if (done) break;
           setOutput((prevOutput) => prevOutput + decoder.decode(value));
         }
+
+        setSuccess(true); // Set success to true when command execution is complete
       } catch (error) {
         setOutput('Error executing command');
       } finally {
@@ -103,13 +107,26 @@ const Recovery: React.FC<RecoveryProps> = ({ recoveryData }) => {
     handleRecovery();
   }, [recoveryData]);
 
+  const openRecoveredFiles = async () => {
+    const command = 'open -R ../../../ResQed_Data';
+    await fetch('http://localhost:5001/execute', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ command }),
+    });
+  };
+
   return (
     <div className="recovery">
-      <h1>Recovering Files</h1>
-      <p>Recovery Data: {Array.isArray(recoveryData) ? recoveryData.map(data => data.join(', ')).join('; ') : recoveryData}</p>
-      <div className="output-box">
-        {loading ? <p>Loading...</p> : <pre>{output}</pre>}
-      </div>
+      {loading && <p>Loading...</p>}
+      {success && (
+        <div className="success-container">
+          <p>SUCESS!</p>
+          <button className="button" onClick={openRecoveredFiles}>Open Recovered Files</button>
+        </div>
+      )}
     </div>
   );
 };

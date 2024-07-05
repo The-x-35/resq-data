@@ -74,7 +74,6 @@ To build production release
 
 - in recovery page handle the errors correctly 
 - show improved progress bar
-- open folder in which files are recovered button 
 
 
 
