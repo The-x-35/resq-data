@@ -1,6 +1,6 @@
 import React from 'react';
 // import './HowToUse.css';
-import r from '../../assets/recovery.svg';
+import sd from '../../assets/recovery.svg';
 
 const HowToUse: React.FC = () => {
   return (
