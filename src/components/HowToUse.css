@@ -1,0 +1,49 @@
+/* HowToUse.css */
+
+.how-to-use {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding-top: 1000px;
+  font-family: Arial, sans-serif;
+}
+
+.how-to-use h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+.how-to-use p {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.how-to-use ul {
+  list-style-type: none;
+  padding: 0;
+  width: 80%;
+}
+
+.how-to-use li {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.how-to-use img {
+  width: 50%;
+  height: auto;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Media query for large devices */
+@media (min-width: 1024px) {
+  .how-to-use {
+    padding-top: 1150px;
+  }
+}
