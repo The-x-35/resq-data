@@ -59,8 +59,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectPage, selectedPage }) => {
           </li>
         </ul>
         <div className="sidebar-buttons">
-          <button className="sidebar-button">How to Use?</button>
-          <button className="sidebar-button">Developer's Guide</button>
+          <button className="sidebar-button" onClick={() => onSelectPage(Page.HowToUse)}>How to Use?</button>
+          <button className="sidebar-button" onClick={() => onSelectPage(Page.DevelopersGuide)}>Developer's Guide</button>
         </div>
       </div>
     </div>

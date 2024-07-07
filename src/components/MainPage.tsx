@@ -4,6 +4,8 @@ import SelectDisk from './SelectDisk';
 import DiskImage from './DiskImage';
 import RecoverableFiles from './RecoverableFiles';
 import Recovery from './Recovery';
+import HowToUse from './HowToUse';
+import DevelopersGuide from './DevelopersGuide';
 import './MainPage.css';
 import CommandExecutor from './CommandExecutor';
 import TL from './ee/tl';
@@ -13,6 +15,8 @@ export enum Page {
   DiskImage,
   RecoverableFiles,
   Recovery,
+  HowToUse,
+  DevelopersGuide,
 }
 
 interface CheatCodes {
@@ -82,6 +86,10 @@ const MainPage: React.FC = () => {
         return <RecoverableFiles onRecoverAllFiles={handleRecoverAllFiles} />;
       case Page.Recovery:
         return <Recovery recoveryData={recoveryData} />;
+      case Page.HowToUse:
+        return <HowToUse />;
+      case Page.DevelopersGuide:
+        return <DevelopersGuide />;
       default:
         return <SelectDisk onDiskSelect={handleDiskSelect} />;
     }
