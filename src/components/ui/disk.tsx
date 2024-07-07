@@ -27,7 +27,7 @@ const Disk: React.FC<DiskProps> = ({
   isSelected,
 }) => {
   const getFileSystemImage = (fileSystem: string) => {
-    switch (fileSystem.toLowerCase()) {
+    switch (fileSystem?.toLowerCase()) {
       case 'apfs':
         return apfs;
       case 'ntfs':

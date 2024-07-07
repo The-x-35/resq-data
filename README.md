@@ -72,8 +72,6 @@ To build production release
 - in recovery page handle the errors correctly 
 - show improved progress bar
 
-- make How to use and developer's Guide
-
 
 ## Screenshots
 

@@ -111,10 +111,10 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
           diskInfo.fileSystemPersonality = value;
           break;
         case 'Volume Used Space':
-          diskInfo.volumeUsedSpace = value.split(' ').slice(0, 2).join(' ');
+          diskInfo.volumeUsedSpace = value?.split(' ').slice(0, 2).join(' ');
           break;
         case 'Disk Size':
-          diskInfo.diskSize = value.split(' ').slice(0, 2).join(' ');
+          diskInfo.diskSize = value?.split(' ').slice(0, 2).join(' ');
           break;
         default:
           break;
@@ -152,7 +152,7 @@ const SelectDisk: React.FC<SelectDiskProps> = ({ onDiskSelect }) => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     const filteredDisks = diskInfo.filter(disk =>
-      disk.volumeName.toLowerCase().includes(event.target.value.toLowerCase())
+      disk.volumeName?.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setFilteredDiskInfo(filteredDisks);
   };
