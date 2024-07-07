@@ -1,0 +1,49 @@
+/* DevelopersGuide.css */
+
+.developers-guide {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin: 20px;
+    padding-top: 668px;
+    font-family: Arial, sans-serif;
+  }
+
+  .dg-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .developers-guide h1, .developers-guide h2, .developers-guide h3 {
+    margin-bottom: 10px;
+  }
+  
+  .developers-guide p {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .logo {
+    width: 150px;
+    height: auto;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  pre {
+    width: 80%;
+    background: black;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+  }
+  
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+  }
+  
