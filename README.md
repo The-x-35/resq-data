@@ -77,12 +77,12 @@ To build production release
 
 ## Screenshots
 
-![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/Screenshot%202024-06-30%20at%203.01.27%E2%80%AFAM.png?raw=true)
+![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/ss.png?raw=true)
 
-![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/Screenshot%202024-06-30%20at%203.01.43%E2%80%AFAM.png?raw=true)
+![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/sd.png?raw=true)
 
-![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/Screenshot%202024-06-30%20at%203.02.20%E2%80%AFAM.png?raw=true)
+![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/di.png?raw=true)
 
-![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/Screenshot%202024-06-30%20at%203.03.37%E2%80%AFAM.png?raw=true)
+![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/rf.png?raw=true)
 
-![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/Screenshot%202024-06-30%20at%203.03.57%E2%80%AFAM.png?raw=true)
+![App Screenshot](https://github.com/The-x-35/resq-data/blob/master/assets/ss/r.png?raw=true)
